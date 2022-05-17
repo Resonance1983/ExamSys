@@ -1,4 +1,4 @@
-package com.example.ExamSys.Entity;
+package com.example.examsys.Entity;
 
 
 

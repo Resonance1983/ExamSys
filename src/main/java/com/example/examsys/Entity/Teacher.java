@@ -1,4 +1,4 @@
-package com.example.ExamSys.Entity;
+package com.example.examsys.Entity;
 
 
 import lombok.Data;
@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Data
 @Document(collection = "Teacher")

@@ -1,4 +1,4 @@
-package com.example.ExamSys.Entity;
+package com.example.examsys.Entity;
 
 
 import lombok.Data;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 
 @Data
-@Document(collection = "AnswerSheet")
-public class AnswerSheet{
+@Document(collection = "Questions")
+public class Questions{
     @Id
 
     @Field("id")
