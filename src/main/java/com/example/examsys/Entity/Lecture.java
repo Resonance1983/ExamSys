@@ -15,7 +15,7 @@ import java.util.Date;
 
 @Data
 @Document(collection = "lecture")
-public class lecture {
+public class Lecture {
     @Id
     @AutoId
     @Field("id")
