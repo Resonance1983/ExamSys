@@ -1,4 +1,4 @@
-package com.example.examsys.Support;
+package com.example.examsys.Support.MongoAutoID;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

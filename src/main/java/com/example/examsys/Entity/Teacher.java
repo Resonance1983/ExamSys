@@ -15,7 +15,6 @@ import java.util.ArrayList;
 @Document(collection = "Teacher")
 public class Teacher {
     @Id
-
     @Field("id")
     private long id;
     @NotBlank(message = "Name can not be empty.")

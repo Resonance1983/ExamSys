@@ -1,4 +1,4 @@
-package com.example.examsys.Support;
+package com.example.examsys.Support.Redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

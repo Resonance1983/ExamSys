@@ -1,4 +1,4 @@
-package com.example.examsys.Support;
+package com.example.examsys.Support.MongoAutoID;
 
 
 import com.baomidou.mybatisplus.annotation.TableName;

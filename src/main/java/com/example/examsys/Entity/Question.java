@@ -11,10 +11,9 @@ import java.util.ArrayList;
 
 
 @Data
-@Document(collection = "Questions")
-public class Questions{
+@Document(collection = "Question")
+public class Question{
     @Id
-
     @Field("id")
     private long id;
     @Field("type")
@@ -25,12 +24,6 @@ public class Questions{
     private String pictureURL;
     @Field("audioURL")
     private String audioURL;
-    @Field("JudgmentCorrectOption")
-    private int JudgmentCorrectOption;
-    @Field("choicenCorrectOption")
-    private int choicenCorrectOption;
-    @Field("choiceOption")
-    private ArrayList<String> choiceOption;
-    @Field("JudgmentOption")
-    private ArrayList<String> JudgmentOption;
+    @Field("correctAnswer")
+    private  String correctAnswer;
 }

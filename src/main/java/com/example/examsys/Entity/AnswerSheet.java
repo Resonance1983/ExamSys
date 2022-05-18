@@ -1,6 +1,7 @@
 package com.example.examsys.Entity;
 
 
+import com.example.examsys.Support.MongoAutoID.AutoId;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 @Document(collection = "AnswerSheet")
 public class AnswerSheet{
     @Id
-
+    @AutoId
     @Field("id")
     private long id;
     @Field("testID")

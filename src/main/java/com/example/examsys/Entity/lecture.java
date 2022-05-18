@@ -1,6 +1,7 @@
 package com.example.examsys.Entity;
 
 
+import com.example.examsys.Support.MongoAutoID.AutoId;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Data
-@Document(collection = "Class")
-public class Class {
+@Document(collection = "lecture")
+public class lecture {
     @Id
-
+    @AutoId
     @Field("id")
     private long id;
     @Field("academy")
@@ -26,11 +27,7 @@ public class Class {
     @Field("students")
     private ArrayList<String> students;
     @Field("normalscore")
-    private ArrayList<String> normalscore;
+    private double normalscore;
     @Field("testscore")
     private ArrayList<String> testscore;
-    @Field("timeBegin")
-    private Date timeBegin;
-    @Field("timeFinish")
-    private Date timeFinish;
 }

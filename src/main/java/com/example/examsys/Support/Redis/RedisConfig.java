@@ -1,4 +1,4 @@
-package com.example.examsys.Support;
+package com.example.examsys.Support.Redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

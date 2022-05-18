@@ -19,7 +19,7 @@ public class AopLog {
     //线程局部的变量,解决多线程中相同变量的访问冲突问题。
     ThreadLocal<Long> startTime=new ThreadLocal<>();
     //定义切点
-    @Pointcut("execution(public * com.example.zuccecho.Controller..*.*(..))")
+    @Pointcut("execution(public * com.example.examsys.Controller..*.*(..))")
     public void aopWebLog() {}
     @Before("aopWebLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {

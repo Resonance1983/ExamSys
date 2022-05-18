@@ -15,31 +15,28 @@ import java.util.Date;
 @Document(collection = "Test")
 public class Test{
     @Id
-
     @Field("id")
     private long id;
     @Field("teacherID")
     private long teacherID;
-    @Field("classlD")
-    private long classlD;
+    @Field("lecturelD")
+    private long lecturelD;
     @Field("invigilatorlD")
     private long invigilatorlD;
     @Field("timeBegin")
     private Date timeBegin;
     @Field("timeFinish")
     private Date timeFinish;
-    @Field("duration")
-    private Date duration;
     @Field("batch")
     private int batch;
     @Field("session")
     private int session;
     @Field("score")
     private double score;
-    @Field("students")
-    private ArrayList<String> students;
+    @Field("studentsID")
+    private ArrayList<Long> studentsID;
     @Field("questions")
-    private ArrayList<String> questions;
+    private ArrayList<Long> questionsID;
     @Field("answersheets")
-    private ArrayList<String> answersheets;
+    private ArrayList<AnswerSheet> answersheets;
 }
