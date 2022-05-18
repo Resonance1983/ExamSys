@@ -6,7 +6,9 @@ import lombok.Data;
 @Data
 public class AdminDTO {
 	private final long id;
-	private final long testID;
-    private final long studentID;
-    private final ArrayList<String> answers;
+	private final String Name;
+    private final String passWord;
+    private final String sex;
+    private final String pictureURL;
+    private final ArrayList<String> messageBox;
 }

@@ -11,8 +11,7 @@ public class LectureDTO {
     private final String academy;
     private final long teacherID;
     private final ArrayList<String> students;
-    private final ArrayList<String> normalscore;
+    private final double normalscore;
     private final ArrayList<String> testscore;
-    private final Date timeBegin;
-    private final Date timeFinish;
+
 }
