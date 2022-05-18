@@ -1,7 +1,6 @@
 package com.example.examsys.Services.implement;
 
 import com.example.examsys.DTO.StudentDTO;
-import com.example.examsys.Entity.Admin;
 import com.example.examsys.Entity.Student;
 import com.example.examsys.Repository.StudentRepository;
 import com.example.examsys.Services.StudentServices;
