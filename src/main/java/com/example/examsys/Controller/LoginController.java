@@ -5,6 +5,9 @@ import com.example.examsys.Services.StudentServices;
 import com.example.examsys.Services.TeacherServices;
 import com.example.examsys.Services.AdminServices;
 import com.example.examsys.Support.ResponseData;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,13 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @ResponseBody
 public class LoginController {
     @Autowired
-    private StudentServices studentServices;
-    @Autowired
-    private TeacherServices teacherServices;
-    @Autowired
-    private AdminServices adminServices;
-    @Autowired
     private LoginServices loginServices;
+
+    //  jwt的内容：head(token,算法),payload,signature
 
     @GetMapping("StudentLogin/{id}/{password}")
     public ResponseData studentLogin(@PathVariable("id") Long studentID,@PathVariable("password") String password){

@@ -23,62 +23,91 @@ public class LoginServicesImplement implements LoginServices {
     @Autowired
     private AdminRepository ar;
 
-    @Cacheable(key = "#p0+'-'+#p1",value = "studentLogin#2")
+    @Cacheable(key = "#p0+'-'+#p1",value = "studentLogin#4")
     public boolean studentLogin(long studentID,String password){
-        Student user =sr.findById(studentID).get();
-        if(user.getId()==studentID && user.getPassWord().equals(password))
-            return true;
-        else
+        try{
+            Student user =sr.findById(studentID).get();
+            if(user.getId()==studentID && user.getPassWord().equals(password))
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
+        }
+
     }
 
-    @Cacheable(key = "#p0+'-'+#p1",value = "teacherLogin#6")
+    @Cacheable(key = "#p0+'-'+#p1",value = "teacherLogin#4")
     public boolean teacherLogin(long teacherID,String password){
-        Teacher user =tr.findById(teacherID).get();
-        if(user.getId()==teacherID && user.getPassWord().equals(password))
-            return true;
-        else
+        try{
+            Teacher user =tr.findById(teacherID).get();
+            if(user.getId()==teacherID && user.getPassWord().equals(password))
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
+        }
     }
-    @Cacheable(key = "#p0+'-'+#p1",value = "adminLogin#4")
+
+    @Cacheable(key = "#p0+'-'+#p1",value = "adminLogin#2")
     public boolean adminLogin(long adminID,String password){
-        Admin user =ar.findById(adminID).get();
-        if(user.getId()==adminID && user.getPassWord().equals(password))
-            return true;
-        else
+        try{
+            Admin user =ar.findById(adminID).get();
+            if(user.getId()==adminID && user.getPassWord().equals(password))
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
+        }
     }
 
     @CacheEvict(key = "#p0+'-'+#p1")
-    @Cacheable(key = "#p0+'-'+#p2",value = "stuLogin#2")
+    @Cacheable(key = "#p0+'-'+#p2",value = "stuLogin#4")
     public boolean studentModify(long studentID,String oldpassword,String newpass1,String newpass2){
-        Student user =sr.findById(studentID).get();
-        if(user.getId()==studentID && user.getPassWord().equals(oldpassword)){
-            if (newpass1.equals(newpass2)) {
-                user.setPassWord(newpass1);
-                return true;
-            }
+        try{
+            Student user =sr.findById(studentID).get();
+            if(user.getId()==studentID && user.getPassWord().equals(oldpassword)){
+                if (newpass1.equals(newpass2)) {
+                    user.setPassWord(newpass1);
+                    return true;
+                }
+                return false;
+            }else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
-        }else
-            return false;
+        }
     }
 
     @CacheEvict(key = "#p0+'-'+#p1")
-    @Cacheable(key = "#p0+'-'+#p2",value = "teacherLogin#6")
+    @Cacheable(key = "#p0+'-'+#p2",value = "teacherLogin#4")
     public boolean teacherModify(long teacherID,String oldpassword,String newpass1,String newpass2){
-        Teacher user = tr.findById(teacherID).get();
-        if(user.getId()==teacherID && user.getPassWord().equals(oldpassword)){
-            if (newpass1.equals(newpass2)) {
-                user.setPassWord(newpass1);
-                return true;
-            }
+        try{
+            Teacher user = tr.findById(teacherID).get();
+            if(user.getId()==teacherID && user.getPassWord().equals(oldpassword)){
+                if (newpass1.equals(newpass2)) {
+                    user.setPassWord(newpass1);
+                    return true;
+                }
+                return false;
+            }else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
-        }else
-            return false;
+        }
     }
+
     @CacheEvict(key = "#p0+'-'+#p1")
-    @Cacheable(key = "#p0+'-'+#p2",value = "adminLogin#4")
+    @Cacheable(key = "#p0+'-'+#p2",value = "adminLogin#2")
     public boolean adminModify(long adminID,String oldpassword,String newpass1,String newpass2){
+
         Admin user = ar.findById(adminID).get();
         if(user.getId()==adminID && user.getPassWord().equals(oldpassword)){
             if (newpass1.equals(newpass2)) {
