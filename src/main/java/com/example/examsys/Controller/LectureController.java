@@ -1,7 +1,9 @@
 package com.example.examsys.Controller;
 
 
+import com.example.examsys.DTO.AdminDTO;
 import com.example.examsys.DTO.LectureDTO;
+import com.example.examsys.DTO.StudentDTO;
 import com.example.examsys.Entity.Lecture;
 import com.example.examsys.Services.LectureServices;
 import com.example.examsys.Support.JWT.JwtToken;
@@ -10,6 +12,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.Callable;
 
 @RestController
 @RequestMapping("lecture")
@@ -22,65 +26,88 @@ public class LectureController {
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "添加课程")
     @PostMapping(value="addLecture",produces = "application/json;charset=UTF-8")
-    public ResponseData addLecture(@RequestBody LectureDTO lectureDTO){
-        ResponseData rsp = new ResponseData();
-        try{
-            lectureServices.addLecture(lectureDTO);
-            rsp.setRspData(lectureDTO);
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> addLecture(@RequestBody LectureDTO lectureDTO){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    lectureServices.addLecture(lectureDTO);
+                    rsp.setRspData(lectureDTO);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "id删除课程")
     @DeleteMapping("deleteLecture/{id}")
-    public ResponseData deleteLectureById(@PathVariable("id") Long id){
-        ResponseData rsp = new ResponseData();
-        try{
-            lectureServices.deleteLectureById(id);
-            rsp.setRspData(new Boolean(Boolean.TRUE));
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> deleteLectureById(@PathVariable("id") Long id){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    lectureServices.deleteLectureById(id);
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @JwtToken(requirePower = 1)
     @ApiOperation(value = "id寻找课程")
     @GetMapping("findLecture/{id}")
-    public ResponseData findLectureById(@PathVariable("id") Long id){
-        ResponseData rsp = new ResponseData();
-        try{
-            Lecture student = lectureServices.findLectureById(id);
-            rsp.setRspData(student);
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> findLectureById(@PathVariable("id") Long id){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    rsp.setRspData(new LectureDTO(lectureServices.findLectureById(id)));
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "修改课程信息")
     @PutMapping(value = "updateLecture",produces = "application/json;charset=UTF-8")
-    public ResponseData updateLecture(@RequestBody LectureDTO lectureDTO){
-        ResponseData rsp = new ResponseData();
-        try {
-            lectureServices.updateLecture(lectureDTO);
-            rsp.setRspData(lectureDTO);
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> updateLecture(@RequestBody LectureDTO lectureDTO){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    lectureServices.updateLecture(lectureDTO);
+                    rsp.setRspData(lectureDTO);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @ApiOperation(value = "填充课程（测试用）")

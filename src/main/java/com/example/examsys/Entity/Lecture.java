@@ -25,9 +25,9 @@ public class Lecture {
     @Field("teacherID")
     private long teacherID;
     @Field("students")
-    private ArrayList<String> students;
+    private ArrayList<Long> students;
     @Field("normalscore")
     private double normalscore;
     @Field("testscore")
-    private ArrayList<String> testscore;
+    private ArrayList<Integer> testscore;
 }

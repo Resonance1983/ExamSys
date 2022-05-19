@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.example.examsys.Entity.AnswerSheet;
+import com.example.examsys.Entity.Test;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,5 +21,19 @@ public class TestDTO implements Serializable {
     private final int session;
     private final ArrayList<Long> studentsID;
     private final ArrayList<Long> questionsID;
-    private final ArrayList<String> answersheets;
+    private final ArrayList<AnswerSheet> answersheets;
+
+    public TestDTO(Test test){
+        this.id = test.getId();
+        this.teacherID = test.getTeacherID();
+        this.lecturelD = test.getLecturelD();
+        this.invigilatorlD = test.getInvigilatorlD();
+        this.timeBegin = test.getTimeBegin();
+        this.timeFinish = test.getTimeFinish();
+        this.batch = test.getBatch();
+        this.session = test.getSession();
+        this.studentsID = test.getStudentsID();
+        this.questionsID = test.getQuestionsID();
+        this.answersheets = test.getAnswersheets();
+    }
 }

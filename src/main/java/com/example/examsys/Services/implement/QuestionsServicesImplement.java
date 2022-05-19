@@ -1,6 +1,6 @@
 package com.example.examsys.Services.implement;
 
-import com.example.examsys.DTO.QuestionsDTO;
+import com.example.examsys.DTO.QuestionDTO;
 import com.example.examsys.Entity.Question;
 import com.example.examsys.Repository.QuestionRepository;
 import com.example.examsys.Services.QuestionsServices;
@@ -17,7 +17,7 @@ public class QuestionsServicesImplement implements QuestionsServices {
     private QuestionRepository qr;
 
     @Cacheable(key = "#p0.getId()",value = "QuestionID#2")
-    public Question addQuestion(QuestionsDTO questionDTO){
+    public Question addQuestion(QuestionDTO questionDTO){
         try {
             Question question = new Question();
             BeanUtils.copyProperties(questionDTO, question);
@@ -52,7 +52,7 @@ public class QuestionsServicesImplement implements QuestionsServices {
     }
 
     @CachePut(key = "#p0.getId()",value = "QuestionID#2")
-    public boolean updateQuestion(QuestionsDTO questionDTO){
+    public boolean updateQuestion(QuestionDTO questionDTO){
         try {
             Question question = new Question();
             BeanUtils.copyProperties(questionDTO,question);

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.example.examsys.Entity.AnswerSheet;
 import com.example.examsys.Entity.Question;
 import lombok.Data;
 
@@ -13,4 +14,11 @@ public class AnswerSheetDTO implements Serializable {
     private final long testID;
     private final long studentID;
     private final HashMap<Question,String> sheet;
+
+    public AnswerSheetDTO(AnswerSheet answerSheet){
+        this.id = answerSheet.getId();
+        this.testID = answerSheet.getTestID();
+        this.studentID = answerSheet.getStudentID();
+        this.sheet = answerSheet.getSheet();
+    }
 }

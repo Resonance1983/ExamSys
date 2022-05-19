@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.Callable;
 
 @RestController
 @RequestMapping("teacher")
@@ -25,71 +26,94 @@ public class TeacherController {
     @JwtToken(requirePower = 3)
     @ApiOperation(value = "添加老师")
     @PostMapping(value="addTeacher",produces = "application/json;charset=UTF-8")
-    public ResponseData addTeacher(@RequestBody TeacherDTO teacherDTO){
-        ResponseData rsp = new ResponseData();
-        try{
-            teacherServices.addTeacher(teacherDTO);
-            rsp.setRspData(teacherDTO);
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> addTeacher(@RequestBody TeacherDTO teacherDTO){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    teacherServices.addTeacher(teacherDTO);
+                    rsp.setRspData(teacherDTO);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @JwtToken(requirePower = 3)
     @ApiOperation(value = "id删除老师")
     @DeleteMapping("deleteTeacher/{id}")
-    public ResponseData deleteTeacherById(@PathVariable("id") Long id){
-        ResponseData rsp = new ResponseData();
-        try{
-            teacherServices.deleteTeacherById(id);
-            rsp.setRspData(new Boolean(Boolean.TRUE));
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> deleteTeacherById(@PathVariable("id") Long id){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    teacherServices.deleteTeacherById(id);
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @JwtToken(requirePower = 1)
     @ApiOperation(value = "id寻找老师")
     @GetMapping("findTeacher/{id}")
-    public ResponseData findTeacherById(@PathVariable("id") Long id){
-        ResponseData rsp = new ResponseData();
-        try{
-            Teacher teacher = teacherServices.findTeacherById(id);
-            rsp.setRspData(teacher);
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+    public Callable<ResponseData> findTeacherById(@PathVariable("id") Long id){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    rsp.setRspData(new TeacherDTO(teacherServices.findTeacherById(id)));
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
     }
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "更新老师信息")
     @PutMapping(value = "updateTeacher",produces = "application/json;charset=UTF-8")
-    public ResponseData updateTeacher(@RequestBody TeacherDTO teacherDTO, HttpServletRequest httpServletRequest){
-        ResponseData rsp = new ResponseData();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            if(teacherDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))){
-                teacherServices.updateTeacher(teacherDTO);
-                rsp.setRspData(teacherDTO);
-            }else{
-                rsp.setFailed();
-                rsp.setRspMsg("非修改用户");
+    public Callable<ResponseData> updateTeacher(@RequestBody TeacherDTO teacherDTO, HttpServletRequest httpServletRequest){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    String token = httpServletRequest.getHeader("token");
+                    if(teacherDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))){
+                        teacherServices.updateTeacher(teacherDTO);
+                        rsp.setRspData(teacherDTO);
+                    }else{
+                        rsp.setFailed();
+                        rsp.setRspMsg("非修改用户");
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            rsp.setFailed();
-            rsp.setRspMsg(e.toString());
-        }
-        return rsp;
+        };
     }
 
     @ApiOperation(value = "填充老师（测试用）")
