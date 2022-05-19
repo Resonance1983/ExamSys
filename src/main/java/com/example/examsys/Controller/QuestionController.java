@@ -6,17 +6,21 @@ import com.example.examsys.Entity.Question;
 import com.example.examsys.Services.QuestionsServices;
 import com.example.examsys.Support.JWT.JwtToken;
 import com.example.examsys.Support.ResponseData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("question")
 @ResponseBody
+@Api(tags = "问题管理控制器")
 public class QuestionController {
     @Autowired
     private QuestionsServices questionServices;
 
     @JwtToken(requirePower = 2)
+    @ApiOperation(value = "添加问题")
     @PostMapping(value="addQuestion",produces = "application/json;charset=UTF-8")
     public ResponseData addQuestion(@RequestBody QuestionsDTO questionDTO){
         ResponseData rsp = new ResponseData();
@@ -32,6 +36,7 @@ public class QuestionController {
     }
 
     @JwtToken(requirePower = 2)
+    @ApiOperation(value = "id删除问题")
     @DeleteMapping("deleteQuestion/{id}")
     public ResponseData deleteQuestionById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();
@@ -47,6 +52,7 @@ public class QuestionController {
     }
 
     @JwtToken(requirePower = 2)
+    @ApiOperation(value = "id寻找问题")
     @GetMapping("findQuestion/{id}")
     public ResponseData findQuestionById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();
@@ -62,6 +68,7 @@ public class QuestionController {
     }
 
     @JwtToken(requirePower = 2)
+    @ApiOperation(value = "修改问题信息")
     @PutMapping(value = "updateQuestion",produces = "application/json;charset=UTF-8")
     public ResponseData updateQuestion(@RequestBody QuestionsDTO questionDTO){
         ResponseData rsp = new ResponseData();
@@ -76,7 +83,7 @@ public class QuestionController {
         return rsp;
     }
 
-    @JwtToken(requirePower = 2)
+    @ApiOperation(value = "填充问题（测试用）")
     @GetMapping("fillQuestion")
     public void fillQuestion(){
         questionServices.fillQuestion();

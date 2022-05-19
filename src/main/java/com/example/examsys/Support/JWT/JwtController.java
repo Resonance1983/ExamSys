@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/jwt")
+@Api(tags = "Jwt测试器")
 public class JwtController {
 
     @PostMapping("/login")

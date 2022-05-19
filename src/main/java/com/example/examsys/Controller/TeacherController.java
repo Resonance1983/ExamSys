@@ -5,18 +5,25 @@ import com.example.examsys.DTO.TeacherDTO;
 import com.example.examsys.Entity.Teacher;
 import com.example.examsys.Services.TeacherServices;
 import com.example.examsys.Support.JWT.JwtToken;
+import com.example.examsys.Support.JWT.JwtUtil;
 import com.example.examsys.Support.ResponseData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("teacher")
 @ResponseBody
+@Api(tags = "老师管理控制器")
 public class TeacherController {
     @Autowired
     private TeacherServices teacherServices;
 
     @JwtToken(requirePower = 3)
+    @ApiOperation(value = "添加老师")
     @PostMapping(value="addTeacher",produces = "application/json;charset=UTF-8")
     public ResponseData addTeacher(@RequestBody TeacherDTO teacherDTO){
         ResponseData rsp = new ResponseData();
@@ -32,6 +39,7 @@ public class TeacherController {
     }
 
     @JwtToken(requirePower = 3)
+    @ApiOperation(value = "id删除老师")
     @DeleteMapping("deleteTeacher/{id}")
     public ResponseData deleteTeacherById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();
@@ -47,6 +55,7 @@ public class TeacherController {
     }
 
     @JwtToken(requirePower = 1)
+    @ApiOperation(value = "id寻找老师")
     @GetMapping("findTeacher/{id}")
     public ResponseData findTeacherById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();
@@ -62,12 +71,19 @@ public class TeacherController {
     }
 
     @JwtToken(requirePower = 2)
+    @ApiOperation(value = "更新老师信息")
     @PutMapping(value = "updateTeacher",produces = "application/json;charset=UTF-8")
-    public ResponseData updateTeacher(@RequestBody TeacherDTO teacherDTO){
+    public ResponseData updateTeacher(@RequestBody TeacherDTO teacherDTO, HttpServletRequest httpServletRequest){
         ResponseData rsp = new ResponseData();
         try {
-            teacherServices.updateTeacher(teacherDTO);
-            rsp.setRspData(teacherDTO);
+            String token = httpServletRequest.getHeader("token");
+            if(teacherDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))){
+                teacherServices.updateTeacher(teacherDTO);
+                rsp.setRspData(teacherDTO);
+            }else{
+                rsp.setFailed();
+                rsp.setRspMsg("非修改用户");
+            }
         }catch (Exception e){
             e.printStackTrace();
             rsp.setFailed();
@@ -76,7 +92,7 @@ public class TeacherController {
         return rsp;
     }
 
-    @JwtToken(requirePower = 3)
+    @ApiOperation(value = "填充老师（测试用）")
     @GetMapping("fillTeacher")
     public void fillTeacher(){
         teacherServices.fillTeacher();
