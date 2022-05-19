@@ -4,6 +4,7 @@ package com.example.examsys.Controller;
 import com.example.examsys.DTO.LectureDTO;
 import com.example.examsys.Entity.Lecture;
 import com.example.examsys.Services.LectureServices;
+import com.example.examsys.Support.JWT.JwtToken;
 import com.example.examsys.Support.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ public class LectureController {
     @Autowired
     private LectureServices lectureServices;
 
+    @JwtToken(requirePower = 2)
     @PostMapping(value="addLecture",produces = "application/json;charset=UTF-8")
     public ResponseData addLecture(@RequestBody LectureDTO lectureDTO){
         ResponseData rsp = new ResponseData();
@@ -29,6 +31,7 @@ public class LectureController {
         return rsp;
     }
 
+    @JwtToken(requirePower = 2)
     @DeleteMapping("deleteLecture/{id}")
     public ResponseData deleteLectureById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();
@@ -43,6 +46,7 @@ public class LectureController {
         return rsp;
     }
 
+    @JwtToken(requirePower = 1)
     @GetMapping("findLecture/{id}")
     public ResponseData findLectureById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();
@@ -57,6 +61,7 @@ public class LectureController {
         return rsp;
     }
 
+    @JwtToken(requirePower = 2)
     @PutMapping(value = "updateLecture",produces = "application/json;charset=UTF-8")
     public ResponseData updateLecture(@RequestBody LectureDTO lectureDTO){
         ResponseData rsp = new ResponseData();
@@ -71,6 +76,7 @@ public class LectureController {
         return rsp;
     }
 
+    @JwtToken(requirePower = 2)
     @GetMapping("fillLecture")
     public void fillLecture(){
         lectureServices.fillLecture();

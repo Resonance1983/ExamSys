@@ -19,8 +19,6 @@ public class LoginController {
     @Autowired
     private LoginServices loginServices;
 
-    //  jwt的内容：head(token,算法),payload,signature
-
     @GetMapping("StudentLogin/{id}/{password}")
     public ResponseData studentLogin(@PathVariable("id") Long studentID,@PathVariable("password") String password){
         ResponseData rsp = new ResponseData();
@@ -41,6 +39,9 @@ public class LoginController {
         if(!loginServices.teacherLogin(teacherID,password)){
             rsp.setFailed();
             rsp.setRspData(new Boolean(Boolean.FALSE));
+        }else{
+            String token = JwtUtil.sign(teacherID.toString(),"teacher");
+            rsp.setRspData(token);
         }
 
         return rsp;
@@ -51,6 +52,9 @@ public class LoginController {
         if(!loginServices.adminLogin(adminID,password)){
             rsp.setFailed();
             rsp.setRspData(new Boolean(Boolean.FALSE));
+        }else{
+            String token = JwtUtil.sign(adminID.toString(),"admin");
+            rsp.setRspData(token);
         }
 
         return rsp;

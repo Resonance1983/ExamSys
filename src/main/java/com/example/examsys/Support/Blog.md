@@ -1,2 +1,3 @@
-5.17日完成数据库框架设计，entity包和dto包完成，继承zuccecho项目的support包支持
-5.18日完成数据库框架校验，
+5.17日完成数据库框架设计，entity包和dto包搭建，继承zuccecho项目的support包支持<br>
+5.18日完成数据库框架基本校验，完成controller包，repository包和service包搭建<br>
+5.19日完成support包缓存校验和自增长id校验，添加JWT的token校验和权限校验功能；根据后续开发规划修改部分数据库信息；规划后续开发<br>

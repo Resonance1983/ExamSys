@@ -9,6 +9,7 @@ import lombok.Data;
 public class QuestionsDTO implements Serializable {
 	private final long id;
     private final int type;
+    private final int score;
     private final String description;
     private final String pictureURL;
     private final String audioURL;

@@ -31,8 +31,6 @@ public class Test{
     private int batch;
     @Field("session")
     private int session;
-    @Field("score")
-    private double score;
     @Field("studentsID")
     private ArrayList<Long> studentsID;
     @Field("questions")

@@ -18,6 +18,8 @@ public class Question{
     private long id;
     @Field("type")
     private int type;
+    @Field("score")
+    private int score;
     @Field("description")
     private String description;
     @Field("pictureURL")

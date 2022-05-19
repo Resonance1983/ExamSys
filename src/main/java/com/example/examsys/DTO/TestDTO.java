@@ -17,7 +17,6 @@ public class TestDTO implements Serializable {
     private final Date timeFinish;
     private final int batch;
     private final int session;
-    private final double score;
     private final ArrayList<Long> studentsID;
     private final ArrayList<Long> questionsID;
     private final ArrayList<String> answersheets;

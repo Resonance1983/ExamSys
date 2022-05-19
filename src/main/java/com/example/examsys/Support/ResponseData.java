@@ -13,6 +13,8 @@ public class ResponseData implements Serializable {
     private String rspMsg = "Success";
     private Object rspData = new Object();
 
+    public ResponseData(){}
+
     public void setFailed(){
         this.rspCode="00500";
         this.rspMsg="Failed";

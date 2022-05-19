@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 @Data
@@ -22,7 +23,7 @@ public class AnswerSheet{
     private long testID;
     @Field("studentID")
     private long studentID;
-    @Field("answers")
-    private ArrayList<String> answers;
+    @Field("sheet")
+    private HashMap<Question,String> sheet;
 
 }
