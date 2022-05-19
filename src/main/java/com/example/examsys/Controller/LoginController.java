@@ -4,6 +4,7 @@ import com.example.examsys.Services.LoginServices;
 import com.example.examsys.Services.StudentServices;
 import com.example.examsys.Services.TeacherServices;
 import com.example.examsys.Services.AdminServices;
+import com.example.examsys.Support.JWT.JwtUtil;
 import com.example.examsys.Support.ResponseData;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -26,6 +27,9 @@ public class LoginController {
         if(!loginServices.studentLogin(studentID,password)){
             rsp.setFailed();
             rsp.setRspData(new Boolean(Boolean.FALSE));
+        }else{
+            String token = JwtUtil.sign(studentID.toString(),"student");
+            rsp.setRspData(token);
         }
 
         return rsp;

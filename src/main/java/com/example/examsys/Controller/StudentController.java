@@ -4,6 +4,7 @@ package com.example.examsys.Controller;
 import com.example.examsys.DTO.StudentDTO;
 import com.example.examsys.Entity.Student;
 import com.example.examsys.Services.StudentServices;
+import com.example.examsys.Support.JWT.JwtToken;
 import com.example.examsys.Support.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,7 @@ public class StudentController {
         return rsp;
     }
 
+    @JwtToken(requirePower = 2)
     @GetMapping("findStudent/{id}")
     public ResponseData findStudentById(@PathVariable("id") Long id){
         ResponseData rsp = new ResponseData();

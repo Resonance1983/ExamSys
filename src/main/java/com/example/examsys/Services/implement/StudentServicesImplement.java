@@ -42,13 +42,8 @@ public class StudentServicesImplement implements StudentServices {
 
     @Cacheable(key = "#p0",value = "StudentID#2")
     public Student findStudentById(Long id){
-        try {
-            Student student = sr.findById(id).get();
-            return student;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+        Student student = sr.findById(id).get();
+        return student;
     }
 
     @CachePut(key = "#p0.getId()",value = "StudentID#2")

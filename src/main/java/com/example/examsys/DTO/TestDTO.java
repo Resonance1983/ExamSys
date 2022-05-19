@@ -1,5 +1,6 @@
 package com.example.examsys.DTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
-public class TestDTO {
+public class TestDTO implements Serializable {
 	private final long id;
     private final long teacherID;
     private final long lecturelD;

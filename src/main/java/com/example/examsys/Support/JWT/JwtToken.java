@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JwtToken {
     boolean required() default true;
+    int requirePower() default 0;
 }

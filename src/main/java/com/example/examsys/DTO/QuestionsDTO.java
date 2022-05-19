@@ -1,11 +1,12 @@
 package com.example.examsys.DTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import lombok.Data;
 
 @Data
-public class QuestionsDTO {
+public class QuestionsDTO implements Serializable {
 	private final long id;
     private final int type;
     private final String description;

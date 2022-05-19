@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
+//JWT拦截器，拦截带有JwtToken注解的请求
 public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) {
         // 从 http 请求头中取出 token
-        String token = httpServletRequest.getHeader("Authorization");
+        String token = httpServletRequest.getHeader("token");
         // 如果不是映射到方法直接通过
         if(!(object instanceof HandlerMethod)){
             return true;
@@ -34,8 +35,8 @@ public class JwtInterceptor implements HandlerInterceptor {
                 String userId = JwtUtil.getUserId(token);
                 System.out.println("用户id:" + userId);
 
-                // 验证 token
-                JwtUtil.checkSign(token);
+                // 验证 token,核对权限
+                JwtUtil.checkSign(token,jwtToken.requirePower());
             }
         }
         return true;
