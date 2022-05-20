@@ -1,9 +1,13 @@
 package com.example.examsys.Services.implement;
 
 import com.example.examsys.DTO.TestDTO;
+import com.example.examsys.Entity.Question;
 import com.example.examsys.Entity.Test;
+import com.example.examsys.Repository.QuestionRepository;
 import com.example.examsys.Repository.TestRepository;
 import com.example.examsys.Services.TestServices;
+import com.example.examsys.Support.MyTool;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -11,10 +15,15 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 @Service
 public class TestServicesImplement implements TestServices {
     @Autowired
     private TestRepository tr;
+    @Autowired
+    private QuestionRepository qr;
 
     @Cacheable(key = "#p0.getId()",value = "TestID#2")
     public Test addTest(TestDTO testDTO){
@@ -27,6 +36,32 @@ public class TestServicesImplement implements TestServices {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Test addTestAutomatic(TestDTO testDTO,String subject, HashMap<String, Integer> typeNumberMap) {
+        //首先找到所有的相关学科和类型的问题
+        HashMap<String, ArrayList<Question>> relatedQuestions = new HashMap<>();
+        //组成的问卷
+        ArrayList<Question> questions = new ArrayList<>();
+        ArrayList<Long> questionsID = new ArrayList<>();
+        for(String type:typeNumberMap.keySet()){
+            relatedQuestions.put(type,qr.findAllBySubjectAndType(subject,type));
+        }
+        //然后根据问题个数随机取出组成问卷
+        for(String type: typeNumberMap.keySet()){
+            int number = typeNumberMap.get(type);
+            questions.addAll(MyTool.randomGetQuestions(relatedQuestions.get(type),number));
+        }
+        //然后取出id交给test,上传到数据库
+        for(Question question:questions){
+            questionsID.add(question.getId());
+        }
+        Test test = new Test();
+        BeanUtils.copyProperties(testDTO, test);
+        test.setQuestionsID(questionsID);
+        tr.save(test);
+        return test;
     }
 
     @CacheEvict(key = "#p0",value = "TestID")

@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 @RestController
@@ -76,6 +77,34 @@ public class QuestionController {
                 try{
                     System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
                     rsp.setRspData(new QuestionDTO(questionServices.findQuestionById(id)));
+                }catch (Exception e){
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
+    }
+
+    @JwtToken(requirePower = 2)
+    @ApiOperation(value = "批量id寻找问题")
+    @GetMapping("findQuestions/{id}")
+    public Callable<ResponseData> findQuestionsById(@PathVariable("id") ArrayList<Long> ids){
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try{
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    ArrayList<Question> questions = new ArrayList<>();
+                    ArrayList<QuestionDTO> questionDTOS = new ArrayList<>();
+                    questions = questionServices.findQuestionsById(ids);
+                    for(Question question:questions){
+                        questionDTOS.add(new QuestionDTO(question));
+                    }
+                    rsp.setRspData(questionDTOS);
+                    return rsp;
                 }catch (Exception e){
                     e.printStackTrace();
                     rsp.setFailed();

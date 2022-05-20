@@ -17,9 +17,11 @@ public class Question{
     @Field("id")
     private long id;
     @Field("type")
-    private int type;
+    private String type;
     @Field("score")
     private int score;
+    @Field("subject")
+    private String subject;
     @Field("description")
     private String description;
     @Field("pictureURL")

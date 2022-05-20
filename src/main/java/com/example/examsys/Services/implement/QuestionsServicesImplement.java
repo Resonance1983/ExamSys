@@ -11,6 +11,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class QuestionsServicesImplement implements QuestionsServices {
     @Autowired
@@ -51,6 +53,21 @@ public class QuestionsServicesImplement implements QuestionsServices {
         }
     }
 
+    @Override
+    public ArrayList<Question> findQuestionsById(ArrayList<Long> ids) {
+        try {
+            ArrayList<Question> questions = new ArrayList<Question>();
+            for(Long id:ids){
+                Question t = qr.findById(id).get();
+                questions.add(t);
+            }
+            return questions;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @CachePut(key = "#p0.getId()",value = "QuestionID#2")
     public boolean updateQuestion(QuestionDTO questionDTO){
         try {
@@ -66,7 +83,7 @@ public class QuestionsServicesImplement implements QuestionsServices {
 
     public void fillQuestion(){
         Question a = new Question();
-        a.setType(1);
+        a.setType("简答题");
         a.setId(123456L);
         a.setDescription("光的散射原因");
         qr.save(a);
