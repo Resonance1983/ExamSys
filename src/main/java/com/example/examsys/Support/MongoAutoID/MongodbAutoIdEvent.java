@@ -36,8 +36,7 @@ public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
         super.onBeforeConvert(event);
     }
 
-    private Long getNextId(String collectionName)
-    {
+    private Long getNextId(String collectionName) {
         Query query = new Query(Criteria.where("collectioin_name").is(collectionName));
         Update update = new Update();
         update.inc("aid", 1);

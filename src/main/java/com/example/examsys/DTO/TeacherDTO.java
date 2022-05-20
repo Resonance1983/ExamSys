@@ -1,14 +1,14 @@
 package com.example.examsys.DTO;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import com.example.examsys.Entity.Teacher;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 @Data
 public class TeacherDTO implements Serializable {
-	private final long id;
+    private final long id;
     private final String Name;
     private final String passWord;
     private final String sex;
@@ -16,7 +16,7 @@ public class TeacherDTO implements Serializable {
     private final ArrayList<String> messageBox;
     private final String academy;
 
-    public TeacherDTO(Teacher teacher){
+    public TeacherDTO(Teacher teacher) {
         this.id = teacher.getId();
         this.Name = teacher.getName();
         this.passWord = teacher.getPassWord();

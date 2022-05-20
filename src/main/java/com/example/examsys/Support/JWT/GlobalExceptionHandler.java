@@ -1,7 +1,6 @@
 package com.example.examsys.Support.JWT;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +11,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
-        if(e instanceof HttpMessageConversionException){
+        if (e instanceof HttpMessageConversionException) {
             System.out.println("HttpMessageConversionException");
             return null;
         }

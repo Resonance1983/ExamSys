@@ -1,6 +1,5 @@
 package com.example.examsys.Support.JWT;
 
-import com.example.examsys.Support.JWT.JwtInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,6 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 添加jwt拦截器
+     *
      * @param registry
      */
     @Override
@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * jwt拦截器
+     *
      * @return
      */
     @Bean

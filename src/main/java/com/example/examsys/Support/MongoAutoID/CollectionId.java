@@ -1,6 +1,5 @@
 package com.example.examsys.Support.MongoAutoID;
 
-
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;

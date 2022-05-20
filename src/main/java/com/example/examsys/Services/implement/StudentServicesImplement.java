@@ -15,51 +15,51 @@ import org.springframework.stereotype.Service;
 public class StudentServicesImplement implements StudentServices {
     @Autowired
     private StudentRepository sr;
-
-    @Cacheable(key = "#p0.getId()",value = "StudentID#2")
-    public Student addStudent(StudentDTO studentDTO){
+    
+    @Cacheable(key = "#p0.getId()", value = "StudentID#2")
+    public Student addStudent(StudentDTO studentDTO) {
         try {
             Student student = new Student();
             BeanUtils.copyProperties(studentDTO, student);
             sr.save(student);
             return student;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    @CacheEvict(key = "#p0",value = "StudentID")
-    public boolean deleteStudentById(Long id){
+    @CacheEvict(key = "#p0", value = "StudentID")
+    public boolean deleteStudentById(Long id) {
         try {
             sr.deleteById(id);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    @Cacheable(key = "#p0",value = "StudentID#2")
-    public Student findStudentById(Long id){
+    @Cacheable(key = "#p0", value = "StudentID#2")
+    public Student findStudentById(Long id) {
         Student student = sr.findById(id).get();
         return student;
     }
 
-    @CachePut(key = "#p0.getId()",value = "StudentID#2")
-    public boolean updateStudent(StudentDTO studentDTO){
+    @CachePut(key = "#p0.getId()", value = "StudentID#2")
+    public boolean updateStudent(StudentDTO studentDTO) {
         try {
             Student student = new Student();
-            BeanUtils.copyProperties(studentDTO,student);
+            BeanUtils.copyProperties(studentDTO, student);
             sr.save(student);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public void fillStudent(){
+    public void fillStudent() {
         Student a = new Student();
         a.setName("zgy");
         a.setId(31901032L);

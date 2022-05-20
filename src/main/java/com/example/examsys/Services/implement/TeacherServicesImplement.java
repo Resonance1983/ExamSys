@@ -16,55 +16,55 @@ public class TeacherServicesImplement implements TeacherServices {
     @Autowired
     private TeacherRepository tr;
 
-    @Cacheable(key = "#p0.getId()",value = "TeacherID#2")
-    public Teacher addTeacher(TeacherDTO teacherDTO){
+    @Cacheable(key = "#p0.getId()", value = "TeacherID#2")
+    public Teacher addTeacher(TeacherDTO teacherDTO) {
         try {
             Teacher teacher = new Teacher();
             BeanUtils.copyProperties(teacherDTO, teacher);
             tr.save(teacher);
             return teacher;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    @CacheEvict(key = "#p0",value = "TeacherID")
-    public boolean deleteTeacherById(Long id){
+    @CacheEvict(key = "#p0", value = "TeacherID")
+    public boolean deleteTeacherById(Long id) {
         try {
             tr.deleteById(id);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    @Cacheable(key = "#p0",value = "TeacherID#2")
-    public Teacher findTeacherById(Long id){
+    @Cacheable(key = "#p0", value = "TeacherID#2")
+    public Teacher findTeacherById(Long id) {
         try {
             Teacher teacher = tr.findById(id).get();
             return teacher;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    @CachePut(key = "#p0.getId()",value = "TeacherID#2")
-    public boolean updateTeacher(TeacherDTO teacherDTO){
+    @CachePut(key = "#p0.getId()", value = "TeacherID#2")
+    public boolean updateTeacher(TeacherDTO teacherDTO) {
         try {
             Teacher teacher = new Teacher();
-            BeanUtils.copyProperties(teacherDTO,teacher);
+            BeanUtils.copyProperties(teacherDTO, teacher);
             tr.save(teacher);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public void fillTeacher(){
+    public void fillTeacher() {
         Teacher a = new Teacher();
         a.setName("zgy");
         a.setId(31901032L);

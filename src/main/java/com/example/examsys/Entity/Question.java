@@ -7,13 +7,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-
 @Data
 @Document(collection = "Question")
-public class Question{
+public class Question {
     @Id
     @AutoId
     @Field("id")
@@ -31,5 +27,5 @@ public class Question{
     @Field("audioURL")
     private String audioURL;
     @Field("correctAnswer")
-    private  String correctAnswer;
+    private String correctAnswer;
 }

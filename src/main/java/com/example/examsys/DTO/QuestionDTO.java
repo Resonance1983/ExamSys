@@ -1,14 +1,13 @@
 package com.example.examsys.DTO;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import com.example.examsys.Entity.Question;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 public class QuestionDTO implements Serializable {
-	private final long id;
+    private final long id;
     private final String type;
     private final int score;
     private String subject;
@@ -17,7 +16,7 @@ public class QuestionDTO implements Serializable {
     private final String audioURL;
     private final String correctAnswer;
 
-    public QuestionDTO(Question question){
+    public QuestionDTO(Question question) {
         this.id = question.getId();
         this.type = question.getType();
         this.score = question.getScore();

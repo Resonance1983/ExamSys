@@ -3,15 +3,11 @@ package com.example.examsys.Entity;
 
 import com.example.examsys.Support.MongoAutoID.AutoId;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Data
 @Document(collection = "lecture")

@@ -4,9 +4,13 @@ import com.example.examsys.DTO.TeacherDTO;
 import com.example.examsys.Entity.Teacher;
 
 public interface TeacherServices {
-    public Teacher addTeacher(TeacherDTO teacherDTO);
-    public boolean deleteTeacherById(Long id);
-    public Teacher findTeacherById(Long id);
-    public boolean updateTeacher(TeacherDTO teacherDTO);
-    public void fillTeacher();
+    Teacher addTeacher(TeacherDTO teacherDTO);
+
+    boolean deleteTeacherById(Long id);
+
+    Teacher findTeacherById(Long id);
+
+    boolean updateTeacher(TeacherDTO teacherDTO);
+
+    void fillTeacher();
 }

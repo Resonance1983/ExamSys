@@ -1,17 +1,16 @@
 package com.example.examsys.DTO;
 
+import com.example.examsys.Entity.AnswerSheet;
+import com.example.examsys.Entity.Test;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.example.examsys.Entity.AnswerSheet;
-import com.example.examsys.Entity.Test;
-import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Field;
-
 @Data
 public class TestDTO implements Serializable {
-	private final long id;
+    private final long id;
     private final long teacherID;
     private final long lecturelD;
     private final long invigilatorlD;
@@ -23,7 +22,7 @@ public class TestDTO implements Serializable {
     private final ArrayList<Long> questionsID;
     private final ArrayList<AnswerSheet> answersheets;
 
-    public TestDTO(Test test){
+    public TestDTO(Test test) {
         this.id = test.getId();
         this.teacherID = test.getTeacherID();
         this.lecturelD = test.getLecturelD();

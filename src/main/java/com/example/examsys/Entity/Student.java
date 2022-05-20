@@ -1,7 +1,5 @@
 package com.example.examsys.Entity;
 
-
-
 import com.example.examsys.Support.MongoAutoID.AutoId;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -10,12 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
 @Document(collection = "Student")
-public class Student{
+public class Student {
     @Id
     @AutoId
     @Field("id")
@@ -23,7 +20,7 @@ public class Student{
     @NotBlank(message = "Name can not be empty.")
     @Field("Name")
     private String Name;
-    @Length(min = 8,max = 20,message = "password length from 8 to 20")
+    @Length(min = 8, max = 20, message = "password length from 8 to 20")
     @Field("passWord")
     private String passWord;
     @Field("academy")

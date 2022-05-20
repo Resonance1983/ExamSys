@@ -9,7 +9,7 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 import java.time.Duration;
 
 public class CustomRedisCacheManager extends RedisCacheManager {
-
+    
     /*
      * @description 提供默认构造器
      * @author xianping

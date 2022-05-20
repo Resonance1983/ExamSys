@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackages = { "com.example.examsys.Controller" })//扫描的包路径
+@ComponentScan(basePackages = {"com.example.examsys.Controller"})//扫描的包路径
 public class SwaggerConfig {
     @Bean
     public Docket api() {
@@ -26,6 +26,7 @@ public class SwaggerConfig {
 
     /**
      * 该套 API 说明，包含作者、简介、版本、host、服务URL
+     *
      * @return
      */
     private ApiInfo apiInfo() {

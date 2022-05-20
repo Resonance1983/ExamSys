@@ -13,19 +13,20 @@ public class ResponseData implements Serializable {
     private String rspMsg = "Success";
     private Object rspData = new Object();
 
-    public ResponseData(){}
-
-    public void setFailed(){
-        this.rspCode="00500";
-        this.rspMsg="Failed";
+    public ResponseData() {
     }
 
-    public void setError(){
-        this.rspCode="00999";
-        this.rspData="Error";
+    public void setFailed() {
+        this.rspCode = "00500";
+        this.rspMsg = "Failed";
     }
 
-    public String toJson(){
+    public void setError() {
+        this.rspCode = "00999";
+        this.rspData = "Error";
+    }
+
+    public String toJson() {
         return JSON.toJSONString(this.rspData);
     }
 

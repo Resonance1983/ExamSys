@@ -24,11 +24,11 @@ public class AnalyseServicesImplement implements AnalyseServices {
             Test test = tr.findById(testID).get();
             ArrayList<AnswerSheet> answerSheets = test.getAnswersheets();
             //将他们在这道题上的得分情况填写到result上
-            for(AnswerSheet answerSheet:answerSheets){
-                result.put(answerSheet.getStudentID(),answerSheet.getScoreByQuestionID(questionID));
+            for (AnswerSheet answerSheet : answerSheets) {
+                result.put(answerSheet.getStudentID(), answerSheet.getScoreByQuestionID(questionID));
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -42,15 +42,15 @@ public class AnalyseServicesImplement implements AnalyseServices {
             Test test = tr.findById(testID).get();
             ArrayList<AnswerSheet> answerSheets = test.getAnswersheets();
             //将他们在这些题上的得分情况填写到result上
-            for(AnswerSheet answerSheet:answerSheets){
-                HashMap<Long,Integer> t = new HashMap<>();
-                for(Long id:questionsID){
-                    t.put(id,answerSheet.getScoreByQuestionID(id));
+            for (AnswerSheet answerSheet : answerSheets) {
+                HashMap<Long, Integer> t = new HashMap<>();
+                for (Long id : questionsID) {
+                    t.put(id, answerSheet.getScoreByQuestionID(id));
                 }
-                result.put(answerSheet.getStudentID(),t);
+                result.put(answerSheet.getStudentID(), t);
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -64,17 +64,17 @@ public class AnalyseServicesImplement implements AnalyseServices {
             Test test = tr.findById(testID).get();
             ArrayList<AnswerSheet> answerSheets = test.getAnswersheets();
             //将他们在这类题上的得分情况填写到result上
-            for(AnswerSheet answerSheet:answerSheets){
-                HashMap<Long,Integer> t = new HashMap<>();
-                for(Question question:answerSheet.getSheet().keySet()){
-                    if(question.getType()==type){
-                        t.put(question.getId(),answerSheet.getScoreByQuestionID(question.getId()));
+            for (AnswerSheet answerSheet : answerSheets) {
+                HashMap<Long, Integer> t = new HashMap<>();
+                for (Question question : answerSheet.getSheet().keySet()) {
+                    if (question.getType() == type) {
+                        t.put(question.getId(), answerSheet.getScoreByQuestionID(question.getId()));
                     }
                 }
-                result.put(answerSheet.getStudentID(),t);
+                result.put(answerSheet.getStudentID(), t);
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

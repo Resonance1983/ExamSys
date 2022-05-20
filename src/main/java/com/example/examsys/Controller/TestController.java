@@ -26,17 +26,17 @@ public class TestController {
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "发布考试")
-    @PostMapping(value="addTest",produces = "application/json;charset=UTF-8")
-    public Callable<ResponseData> addTest(@RequestBody TestDTO testDTO){
+    @PostMapping(value = "addTest", produces = "application/json;charset=UTF-8")
+    public Callable<ResponseData> addTest(@RequestBody TestDTO testDTO) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                try{
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     testServices.addTest(testDTO);
                     rsp.setRspData(testDTO);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -48,17 +48,17 @@ public class TestController {
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "智能组卷发布考试")
-    @PostMapping(value="addTestAutomatic",produces = "application/json;charset=UTF-8")
-    public Callable<ResponseData> addTestAutomatic(@RequestBody TestDTO testDTO,@RequestParam String subject,@RequestParam HashMap<String, Integer> typeNumberMap){
+    @PostMapping(value = "addTestAutomatic", produces = "application/json;charset=UTF-8")
+    public Callable<ResponseData> addTestAutomatic(@RequestBody TestDTO testDTO, @RequestParam String subject, @RequestParam HashMap<String, Integer> typeNumberMap) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                try{
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
-                    testServices.addTestAutomatic(testDTO,subject,typeNumberMap);
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    testServices.addTestAutomatic(testDTO, subject, typeNumberMap);
                     rsp.setRspData(testDTO);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -71,16 +71,16 @@ public class TestController {
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "id删除考试")
     @DeleteMapping("deleteTest/{id}")
-    public Callable<ResponseData> deleteTestById(@PathVariable("id") Long id){
+    public Callable<ResponseData> deleteTestById(@PathVariable("id") Long id) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                try{
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     testServices.deleteTestById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -93,20 +93,20 @@ public class TestController {
     @JwtToken(requirePower = 1)
     @ApiOperation(value = "id寻找考试，除了管理员和出卷老师都不能获得问卷信息")
     @GetMapping("findTest/{id}")
-    public Callable<ResponseData> findTestById(@PathVariable("id") Long id,HttpServletRequest httpServletRequest){
+    public Callable<ResponseData> findTestById(@PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                try{
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     String token = httpServletRequest.getHeader("token");
                     Test test = testServices.findTestById(id);
                     //不是管理员或者不是出卷老师就不能得到问卷id组
-                    if(!JwtUtil.checkSign(token,3) || !(test.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)) ) )
+                    if (!JwtUtil.checkSign(token, 3) || !(test.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token))))
                         test.setQuestionsID(null);
                     rsp.setRspData(new TestDTO(test));
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -118,24 +118,24 @@ public class TestController {
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "修改考试信息,只有出卷老师和管理员才能修改")
-    @PutMapping(value = "updateTest",produces = "application/json;charset=UTF-8")
-    public Callable<ResponseData> updateTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest){
+    @PutMapping(value = "updateTest", produces = "application/json;charset=UTF-8")
+    public Callable<ResponseData> updateTest(@RequestBody TestDTO testDTO, HttpServletRequest httpServletRequest) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     String token = httpServletRequest.getHeader("token");
                     //是出卷老师或者管理员就允许修改
-                    if(JwtUtil.checkSign(token,3) || (testDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)) ) ){
+                    if (JwtUtil.checkSign(token, 3) || (testDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)))) {
                         testServices.updateTest(testDTO);
                         rsp.setRspData(testDTO);
-                    }else{
+                    } else {
                         rsp.setFailed();
                         rsp.setRspMsg("非修改用户");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -147,7 +147,7 @@ public class TestController {
 
     @ApiOperation(value = "填充考试（测试用）")
     @GetMapping("fillTest")
-    public void fillTest(){
+    public void fillTest() {
         testServices.fillTest();
     }
 

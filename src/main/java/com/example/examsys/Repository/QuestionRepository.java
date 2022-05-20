@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.ArrayList;
 
-public interface QuestionRepository extends MongoRepository<Question,Long> {
-    public ArrayList<Question> findAllBySubjectAndType(String Subject,String Type);
+public interface QuestionRepository extends MongoRepository<Question, Long> {
+    ArrayList<Question> findAllBySubjectAndType(String Subject, String Type);
 }

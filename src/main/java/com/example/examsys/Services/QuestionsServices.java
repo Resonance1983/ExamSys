@@ -6,10 +6,15 @@ import com.example.examsys.Entity.Question;
 import java.util.ArrayList;
 
 public interface QuestionsServices {
-    public Question addQuestion(QuestionDTO questionDTO);
-    public boolean deleteQuestionById(Long id);
-    public Question findQuestionById(Long id);
-    public ArrayList<Question> findQuestionsById(ArrayList<Long> ids);
-    public boolean updateQuestion(QuestionDTO questionDTO);
-    public void fillQuestion();
+    Question addQuestion(QuestionDTO questionDTO);
+
+    boolean deleteQuestionById(Long id);
+
+    Question findQuestionById(Long id);
+
+    ArrayList<Question> findQuestionsById(ArrayList<Long> ids);
+
+    boolean updateQuestion(QuestionDTO questionDTO);
+
+    void fillQuestion();
 }

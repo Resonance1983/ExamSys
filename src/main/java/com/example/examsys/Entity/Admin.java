@@ -21,7 +21,7 @@ public class Admin {
     @NotBlank(message = "Name can not be empty.")
     @Field("Name")
     private String Name;
-    @Length(min = 8,max = 20,message = "password length from 8 to 20")
+    @Length(min = 8, max = 20, message = "password length from 8 to 20")
     @Field("passWord")
     private String passWord;
     @Field("sex")

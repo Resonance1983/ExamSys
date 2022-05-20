@@ -1,8 +1,6 @@
 package com.example.examsys.Controller;
 
 import com.example.examsys.DTO.AdminDTO;
-import com.example.examsys.DTO.StudentDTO;
-import com.example.examsys.Entity.Admin;
 import com.example.examsys.Services.AdminServices;
 import com.example.examsys.Support.JWT.JwtToken;
 import com.example.examsys.Support.JWT.JwtUtil;
@@ -26,15 +24,15 @@ public class AdminController {
     @JwtToken(requirePower = 3)
     @ApiOperation(value = "id寻找管理员")
     @GetMapping("findAdmin/{id}")
-    public Callable<ResponseData> findAdminByID(@PathVariable("id") Long id){
+    public Callable<ResponseData> findAdminByID(@PathVariable("id") Long id) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     rsp.setRspData(new AdminDTO(adminServices.findAdminByID(id)));
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -46,23 +44,23 @@ public class AdminController {
 
     @JwtToken(requirePower = 3)
     @ApiOperation(value = "更新信息")
-    @PutMapping(value = "updateAdmin",produces = "application/json;charset=UTF-8")
-    public Callable<ResponseData> updateAdmin(@RequestBody AdminDTO adminDTO,HttpServletRequest httpServletRequest){
+    @PutMapping(value = "updateAdmin", produces = "application/json;charset=UTF-8")
+    public Callable<ResponseData> updateAdmin(@RequestBody AdminDTO adminDTO, HttpServletRequest httpServletRequest) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName()+"，执行服务:"+Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     String token = httpServletRequest.getHeader("token");
-                    if(adminDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))){
+                    if (adminDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))) {
                         adminServices.updateAdmin(adminDTO);
                         rsp.setRspData(adminDTO);
-                    }else{
+                    } else {
                         rsp.setFailed();
                         rsp.setRspMsg("非修改用户");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
                     rsp.setRspMsg(e.toString());
@@ -75,7 +73,7 @@ public class AdminController {
 
     @ApiOperation(value = "填充管理员（测试用）")
     @PostMapping("fillAdmin")
-    public void fillAdmin(){
+    public void fillAdmin() {
         adminServices.fillAdmin();
     }
 

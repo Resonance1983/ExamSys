@@ -20,7 +20,7 @@ public class AdminServicesImplement implements AdminServices {
         try {
             Admin admin = ar.findById(id).get();
             return admin;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -30,25 +30,25 @@ public class AdminServicesImplement implements AdminServices {
     public Admin updateAdmin(AdminDTO adminDTO) {
         try {
             Admin admin = new Admin();
-            BeanUtils.copyProperties(adminDTO,admin);
+            BeanUtils.copyProperties(adminDTO, admin);
             ar.save(admin);
             return admin;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
     @Override
-    public void fillAdmin(){
-        try{
+    public void fillAdmin() {
+        try {
             Admin admin = new Admin();
             admin.setId(new Random().nextLong());
             admin.setName("zwt");
             admin.setSex("male");
             admin.setPassWord("31901031");
             ar.save(admin);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
