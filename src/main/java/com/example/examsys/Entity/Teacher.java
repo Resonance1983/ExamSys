@@ -1,6 +1,7 @@
 package com.example.examsys.Entity;
 
 
+import com.example.examsys.Support.MongoAutoID.AutoId;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 @Document(collection = "Teacher")
 public class Teacher {
     @Id
+    @AutoId
     @Field("id")
     private long id;
     @NotBlank(message = "Name can not be empty.")

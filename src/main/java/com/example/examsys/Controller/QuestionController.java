@@ -89,8 +89,8 @@ public class QuestionController {
 
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "批量id寻找问题")
-    @GetMapping("findQuestions/{id}")
-    public Callable<ResponseData> findQuestionsById(@PathVariable("id") ArrayList<Long> ids){
+    @GetMapping("findQuestions")
+    public Callable<ResponseData> findQuestionsById(@RequestBody ArrayList<Long> ids){
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
