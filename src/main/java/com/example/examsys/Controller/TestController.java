@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -135,6 +136,32 @@ public class TestController {
                         rsp.setFailed();
                         rsp.setRspMsg("非修改用户");
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
+    }
+
+    @JwtToken(requirePower = 1)
+    @ApiOperation(value = "寻找所有考试")
+    @GetMapping("findAllTest")
+    public Callable<ResponseData> findAllTest() {
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    ArrayList<TestDTO> testDTOS = new ArrayList<>();
+                    ArrayList<Test> tests = testServices.findAllTests();
+                    for (Test test : tests) {
+                        testDTOS.add(new TestDTO(test));
+                    }
+                    rsp.setRspData(testDTOS);
                 } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();

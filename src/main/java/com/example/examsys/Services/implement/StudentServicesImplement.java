@@ -11,11 +11,13 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class StudentServicesImplement implements StudentServices {
     @Autowired
     private StudentRepository sr;
-    
+
     @Cacheable(key = "#p0.getId()", value = "StudentID#2")
     public Student addStudent(StudentDTO studentDTO) {
         try {
@@ -57,6 +59,12 @@ public class StudentServicesImplement implements StudentServices {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<Student> findAllStudents() {
+        ArrayList<Student> students = new ArrayList<>(sr.findAll());
+        return students;
     }
 
     public void fillStudent() {

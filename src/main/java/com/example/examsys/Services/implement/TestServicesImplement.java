@@ -23,7 +23,7 @@ public class TestServicesImplement implements TestServices {
     private TestRepository tr;
     @Autowired
     private QuestionRepository qr;
-    
+
     @Cacheable(key = "#p0.getId()", value = "TestID#2")
     public Test addTest(TestDTO testDTO) {
         try {
@@ -96,6 +96,12 @@ public class TestServicesImplement implements TestServices {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<Test> findAllTests() {
+        ArrayList<Test> tests = new ArrayList<>(tr.findAll());
+        return tests;
     }
 
     public void fillTest() {

@@ -11,6 +11,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class LectureServicesImplement implements LectureServices {
     @Autowired
@@ -62,6 +64,12 @@ public class LectureServicesImplement implements LectureServices {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<Lecture> findAllLectures() {
+        ArrayList<Lecture> lectures = new ArrayList<>(lr.findAll());
+        return lectures;
     }
 
     public void fillLecture() {

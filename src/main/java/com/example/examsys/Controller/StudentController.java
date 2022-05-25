@@ -2,6 +2,7 @@ package com.example.examsys.Controller;
 
 
 import com.example.examsys.DTO.StudentDTO;
+import com.example.examsys.Entity.Student;
 import com.example.examsys.Services.StudentServices;
 import com.example.examsys.Support.JWT.JwtToken;
 import com.example.examsys.Support.JWT.JwtUtil;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 @RestController
@@ -107,6 +109,32 @@ public class StudentController {
                         rsp.setFailed();
                         rsp.setRspMsg("非修改用户");
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
+    }
+
+    @JwtToken(requirePower = 2)
+    @ApiOperation(value = "寻找所有学生")
+    @GetMapping("findAllStudents")
+    public Callable<ResponseData> findAllStudents() {
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
+                    ArrayList<Student> students = studentServices.findAllStudents();
+                    for (Student student : students) {
+                        studentDTOS.add(new StudentDTO(student));
+                    }
+                    rsp.setRspData(studentDTOS);
                 } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();

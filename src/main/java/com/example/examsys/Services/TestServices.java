@@ -3,6 +3,7 @@ package com.example.examsys.Services;
 import com.example.examsys.DTO.TestDTO;
 import com.example.examsys.Entity.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface TestServices {
@@ -15,6 +16,8 @@ public interface TestServices {
     Test findTestById(Long id);
 
     boolean updateTest(TestDTO testDTO);
+
+    ArrayList<Test> findAllTests();
 
     void fillTest();
 }

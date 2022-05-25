@@ -11,6 +11,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class TeacherServicesImplement implements TeacherServices {
     @Autowired
@@ -62,6 +64,12 @@ public class TeacherServicesImplement implements TeacherServices {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<Teacher> findAllTeachers() {
+        ArrayList<Teacher> teachers = new ArrayList<>(tr.findAll());
+        return teachers;
     }
 
     public void fillTeacher() {

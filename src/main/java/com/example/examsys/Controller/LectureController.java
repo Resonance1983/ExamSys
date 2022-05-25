@@ -2,6 +2,7 @@ package com.example.examsys.Controller;
 
 
 import com.example.examsys.DTO.LectureDTO;
+import com.example.examsys.Entity.Lecture;
 import com.example.examsys.Services.LectureServices;
 import com.example.examsys.Support.JWT.JwtToken;
 import com.example.examsys.Support.ResponseData;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 @RestController
@@ -97,6 +99,32 @@ public class LectureController {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
                     lectureServices.updateLecture(lectureDTO);
                     rsp.setRspData(lectureDTO);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
+    }
+
+    @JwtToken(requirePower = 1)
+    @ApiOperation(value = "寻找所有课程")
+    @GetMapping("findAllLecture")
+    public Callable<ResponseData> findAllLecture() {
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    ArrayList<LectureDTO> lectureDTOS = new ArrayList<>();
+                    ArrayList<Lecture> lectures = lectureServices.findAllLectures();
+                    for (Lecture lecture : lectures) {
+                        lectureDTOS.add(new LectureDTO(lecture));
+                    }
+                    rsp.setRspData(lectureDTOS);
                 } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
