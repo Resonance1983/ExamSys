@@ -28,7 +28,6 @@ public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
                 @SneakyThrows
                 @Override
                 public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
-                    //field指向的就是注解所在的那个类
                     ReflectionUtils.makeAccessible(field);
                     if (field.isAnnotationPresent(AutoId.class)) {
                         Field idField = source.getClass().getField("id");
@@ -44,7 +43,7 @@ public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
     }
 
     private Long getNextId(String collectionName) {
-        Query query = new Query(Criteria.where("collectioin_name").is(collectionName));
+        Query query = new Query(Criteria.where("collectioinName").is(collectionName));
         Update update = new Update();
         update.inc("aid", 1);
         FindAndModifyOptions options = new FindAndModifyOptions();

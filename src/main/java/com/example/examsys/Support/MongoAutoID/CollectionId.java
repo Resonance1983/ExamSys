@@ -2,6 +2,7 @@ package com.example.examsys.Support.MongoAutoID;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,8 +10,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @TableName("collection_id")
 @Data
 public class CollectionId {
+    @Id
     private String id;
-    @Field("collectioin_name")
+    @Field("collectioinName")
     private String collectionName;
+    @Field("aid")
     private Long aid; // 自增id
 }
