@@ -2,6 +2,7 @@ package com.example.examsys.DTO;
 
 import com.example.examsys.Entity.AnswerSheet;
 import com.example.examsys.Entity.Test;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
 public class TestDTO implements Serializable {
     private final long id;
     private final long teacherID;

@@ -5,12 +5,14 @@ import com.example.examsys.DTO.LectureDTO;
 import com.example.examsys.Entity.Lecture;
 import com.example.examsys.Services.LectureServices;
 import com.example.examsys.Support.JWT.JwtToken;
+import com.example.examsys.Support.JWT.JwtUtil;
 import com.example.examsys.Support.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -90,14 +92,21 @@ public class LectureController {
     @JwtToken(requirePower = 2)
     @ApiOperation(value = "修改课程信息")
     @PutMapping(value = "updateLecture", produces = "application/json;charset=UTF-8")
-    public Callable<ResponseData> updateLecture(@RequestBody LectureDTO lectureDTO) {
+    public Callable<ResponseData> updateLecture(@RequestBody LectureDTO lectureDTO, HttpServletRequest httpServletRequest) {
         return new Callable<ResponseData>() {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                    lectureServices.updateLecture(lectureDTO);
+                    String token = httpServletRequest.getHeader("token");
+                    if (lectureDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token))) {
+                        lectureServices.updateLecture(lectureDTO);
+                        rsp.setRspData(lectureDTO);
+                    } else {
+                        rsp.setFailed();
+                        rsp.setRspMsg("非修改用户");
+                    }
                     rsp.setRspData(lectureDTO);
                 } catch (Exception e) {
                     e.printStackTrace();

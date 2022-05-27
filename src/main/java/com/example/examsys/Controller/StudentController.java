@@ -36,7 +36,7 @@ public class StudentController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteStudentById");
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addStudent");
                     studentServices.addStudent(studentDTO);
                     rsp.setRspData(studentDTO);
                 } catch (Exception e) {
@@ -58,7 +58,7 @@ public class StudentController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteStudentById");
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteStudent");
                     studentServices.deleteStudentById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
                 } catch (Exception e) {
@@ -80,7 +80,7 @@ public class StudentController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findStudent");
                     rsp.setRspData(new StudentDTO(studentServices.findStudentById(id)));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -109,6 +109,7 @@ public class StudentController {
                         rsp.setFailed();
                         rsp.setRspMsg("非修改用户");
                     }
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateStudent");
                 } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
@@ -128,7 +129,7 @@ public class StudentController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAllStudents");
                     ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
                     ArrayList<Student> students = studentServices.findAllStudents();
                     for (Student student : students) {
@@ -145,7 +146,7 @@ public class StudentController {
         };
     }
 
-    @GetMapping("fillStudent")
+    @PostMapping("fillStudent")
     public void fillStudent() {
         studentServices.fillStudent();
     }

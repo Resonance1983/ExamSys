@@ -11,6 +11,6 @@ public interface LoginServices {
 
     boolean teacherModify(long teacherID, String oldpassword, String newpass1, String newpass2);
 
-    boolean adminModify(long adminID, String oldpassword, String newpass1, String newpass2);
+//    boolean adminModify(long adminID, String oldpassword, String newpass1, String newpass2);
 }
 

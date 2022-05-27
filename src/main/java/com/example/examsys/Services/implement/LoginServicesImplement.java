@@ -9,8 +9,6 @@ import com.example.examsys.Repository.TeacherRepository;
 import com.example.examsys.Services.LoginServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,8 +20,7 @@ public class LoginServicesImplement implements LoginServices {
     private TeacherRepository tr;
     @Autowired
     private AdminRepository ar;
-    
-    @Cacheable(key = "#p0+'-'+#p1", value = "studentLogin#4")
+
     public boolean studentLogin(long studentID, String password) {
         try {
             Student user = sr.findById(studentID).get();
@@ -35,7 +32,6 @@ public class LoginServicesImplement implements LoginServices {
 
     }
 
-    @Cacheable(key = "#p0+'-'+#p1", value = "teacherLogin#4")
     public boolean teacherLogin(long teacherID, String password) {
         try {
             Teacher user = tr.findById(teacherID).get();
@@ -46,7 +42,6 @@ public class LoginServicesImplement implements LoginServices {
         }
     }
 
-    @Cacheable(key = "#p0+'-'+#p1", value = "adminLogin#2")
     public boolean adminLogin(long adminID, String password) {
         try {
             Admin user = ar.findById(adminID).get();
@@ -57,14 +52,15 @@ public class LoginServicesImplement implements LoginServices {
         }
     }
 
-    @CacheEvict(key = "#p0+'-'+#p1")
-    @Cacheable(key = "#p0+'-'+#p2", value = "stuLogin#4")
+    //    @CacheEvict(key = "#p0+'-'+#p1")
+//    @Cacheable(key = "#p0+'-'+#p2", value = "stuLogin#4")
     public boolean studentModify(long studentID, String oldpassword, String newpass1, String newpass2) {
         try {
             Student user = sr.findById(studentID).get();
-            if (user.getId() == studentID && user.getPassWord().equals(oldpassword)) {
+            if (user.getId() == studentID && !user.getPassWord().equals(oldpassword)) {
                 if (newpass1.equals(newpass2)) {
                     user.setPassWord(newpass1);
+                    sr.save(user);
                     return true;
                 }
                 return false;
@@ -76,14 +72,13 @@ public class LoginServicesImplement implements LoginServices {
         }
     }
 
-    @CacheEvict(key = "#p0+'-'+#p1")
-    @Cacheable(key = "#p0+'-'+#p2", value = "teacherLogin#4")
     public boolean teacherModify(long teacherID, String oldpassword, String newpass1, String newpass2) {
         try {
             Teacher user = tr.findById(teacherID).get();
-            if (user.getId() == teacherID && user.getPassWord().equals(oldpassword)) {
+            if (user.getId() == teacherID && !user.getPassWord().equals(oldpassword)) {
                 if (newpass1.equals(newpass2)) {
                     user.setPassWord(newpass1);
+                    tr.save(user);
                     return true;
                 }
                 return false;
@@ -95,18 +90,18 @@ public class LoginServicesImplement implements LoginServices {
         }
     }
 
-    @CacheEvict(key = "#p0+'-'+#p1")
-    @Cacheable(key = "#p0+'-'+#p2", value = "adminLogin#2")
-    public boolean adminModify(long adminID, String oldpassword, String newpass1, String newpass2) {
-
-        Admin user = ar.findById(adminID).get();
-        if (user.getId() == adminID && user.getPassWord().equals(oldpassword)) {
-            if (newpass1.equals(newpass2)) {
-                user.setPassWord(newpass1);
-                return true;
-            }
-            return false;
-        } else
-            return false;
-    }
+//    @CacheEvict(key = "#p0+'-'+#p1")
+//    @Cacheable(key = "#p0+'-'+#p2", value = "adminLogin#2")
+//    public boolean adminModify(long adminID, String oldpassword, String newpass1, String newpass2) {
+//
+//        Admin user = ar.findById(adminID).get();
+//        if (user.getId() == adminID && !user.getPassWord().equals(oldpassword)) {
+//            if (newpass1.equals(newpass2)) {
+//                user.setPassWord(newpass1);
+//                return true;
+//            }
+//            return false;
+//        } else
+//            return false;
+//    }
 }

@@ -1,12 +1,14 @@
 package com.example.examsys.DTO;
 
 import com.example.examsys.Entity.Teacher;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
+@AllArgsConstructor
 public class TeacherDTO implements Serializable {
     private final long id;
     private final String Name;

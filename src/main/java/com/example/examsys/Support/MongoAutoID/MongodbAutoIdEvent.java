@@ -1,6 +1,7 @@
 package com.example.examsys.Support.MongoAutoID;
 
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,10 +25,16 @@ public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
         Object source = event.getSource();
         if (null != source) {
             ReflectionUtils.doWithFields(source.getClass(), new ReflectionUtils.FieldCallback() {
+                @SneakyThrows
                 @Override
                 public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
+                    //field指向的就是注解所在的那个类
                     ReflectionUtils.makeAccessible(field);
                     if (field.isAnnotationPresent(AutoId.class)) {
+                        Field idField = source.getClass().getField("id");
+                        idField.setAccessible(true);
+                        long id = idField.getLong(source.getClass().newInstance());
+                        System.out.println(id);
                         field.set(source, getNextId(source.getClass().getSimpleName()));
                     }
                 }
