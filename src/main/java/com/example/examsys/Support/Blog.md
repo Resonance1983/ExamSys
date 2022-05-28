@@ -11,4 +11,5 @@
 5.28修复trycatch和输出问题，修复autoid以及因为该注解切面问题导致的返回值错误,修复self校验屏蔽高权限;修改注釋
 
 ps：student的部分cache删除了，方便测试和展示;autoid注解不知道为什么有时候会失效；报错仍然会缓存，所以将缓存时间缩短为5min<br>
-todo：id post提交校验
+
+todo：重复id post（算了，不弄了）
