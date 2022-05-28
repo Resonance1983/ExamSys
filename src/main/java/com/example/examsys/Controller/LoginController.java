@@ -28,13 +28,20 @@ public class LoginController {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                if (!loginServices.studentLogin(studentID, password)) {
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    if (!loginServices.studentLogin(studentID, password)) {
+                        rsp.setFailed();
+                        rsp.setRspData(new Boolean(Boolean.FALSE));
+                    } else {
+                        String token = JwtUtil.sign(studentID.toString(), "student");
+                        rsp.setRspData(token);
+                    }
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                } catch (Exception e) {
+                    e.printStackTrace();
                     rsp.setFailed();
-                    rsp.setRspData(new Boolean(Boolean.FALSE));
-                } else {
-                    String token = JwtUtil.sign(studentID.toString(), "student");
-                    rsp.setRspData(token);
+                    rsp.setRspMsg(e.toString());
                 }
                 return rsp;
             }
@@ -48,13 +55,20 @@ public class LoginController {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                if (!loginServices.teacherLogin(teacherID, password)) {
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    if (!loginServices.teacherLogin(teacherID, password)) {
+                        rsp.setFailed();
+                        rsp.setRspData(new Boolean(Boolean.FALSE));
+                    } else {
+                        String token = JwtUtil.sign(teacherID.toString(), "teacher");
+                        rsp.setRspData(token);
+                    }
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                } catch (Exception e) {
+                    e.printStackTrace();
                     rsp.setFailed();
-                    rsp.setRspData(new Boolean(Boolean.FALSE));
-                } else {
-                    String token = JwtUtil.sign(teacherID.toString(), "teacher");
-                    rsp.setRspData(token);
+                    rsp.setRspMsg(e.toString());
                 }
                 return rsp;
             }
@@ -68,13 +82,20 @@ public class LoginController {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                if (!loginServices.adminLogin(adminID, password)) {
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    if (!loginServices.adminLogin(adminID, password)) {
+                        rsp.setFailed();
+                        rsp.setRspData(new Boolean(Boolean.FALSE));
+                    } else {
+                        String token = JwtUtil.sign(adminID.toString(), "admin");
+                        rsp.setRspData(token);
+                    }
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                } catch (Exception e) {
+                    e.printStackTrace();
                     rsp.setFailed();
-                    rsp.setRspData(new Boolean(Boolean.FALSE));
-                } else {
-                    String token = JwtUtil.sign(adminID.toString(), "admin");
-                    rsp.setRspData(token);
+                    rsp.setRspMsg(e.toString());
                 }
                 return rsp;
             }
@@ -88,11 +109,18 @@ public class LoginController {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                if (!loginServices.studentModify(studentID, oldpassword, newpass1, newpass2)) {
-                    logger.info(oldpassword + " " + newpass1 + " " + newpass2);
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    if (!loginServices.studentModify(studentID, oldpassword, newpass1, newpass2)) {
+                        logger.info(oldpassword + " " + newpass1 + " " + newpass2);
+                        rsp.setFailed();
+                        rsp.setRspData(new Boolean(Boolean.FALSE));
+                    }
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                } catch (Exception e) {
+                    e.printStackTrace();
                     rsp.setFailed();
-                    rsp.setRspData(new Boolean(Boolean.FALSE));
+                    rsp.setRspMsg(e.toString());
                 }
                 return rsp;
             }
@@ -106,11 +134,18 @@ public class LoginController {
             @Override
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
-                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                if (!loginServices.teacherModify(teacherID, oldpassword, newpass1, newpass2)) {
-                    logger.info(oldpassword + " " + newpass1 + " " + newpass2);
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    if (!loginServices.teacherModify(teacherID, oldpassword, newpass1, newpass2)) {
+                        logger.info(oldpassword + " " + newpass1 + " " + newpass2);
+                        rsp.setFailed();
+                        rsp.setRspData(new Boolean(Boolean.FALSE));
+                    }
+                    rsp.setRspData(new Boolean(Boolean.TRUE));
+                } catch (Exception e) {
+                    e.printStackTrace();
                     rsp.setFailed();
-                    rsp.setRspData(new Boolean(Boolean.FALSE));
+                    rsp.setRspMsg(e.toString());
                 }
                 return rsp;
             }

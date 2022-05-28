@@ -20,26 +20,16 @@ public class StudentServicesImplement implements StudentServices {
 
     @Cacheable(key = "#p0.getId()", value = "StudentID#2")
     public Student addStudent(StudentDTO studentDTO) {
-        try {
-            Student student = new Student();
-            BeanUtils.copyProperties(studentDTO, student);
-            sr.save(student);
-            return student;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Student student = new Student();
+        BeanUtils.copyProperties(studentDTO, student);
+        sr.save(student);
+        return student;
     }
 
     @CacheEvict(key = "#p0", value = "StudentID")
     public boolean deleteStudentById(Long id) {
-        try {
-            sr.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        sr.deleteById(id);
+        return true;
     }
 
     @Cacheable(key = "#p0", value = "StudentID#2")
@@ -50,15 +40,10 @@ public class StudentServicesImplement implements StudentServices {
 
     @CachePut(key = "#p0.getId()", value = "StudentID#2")
     public boolean updateStudent(StudentDTO studentDTO) {
-        try {
-            Student student = new Student();
-            BeanUtils.copyProperties(studentDTO, student);
-            sr.save(student);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        Student student = new Student();
+        BeanUtils.copyProperties(studentDTO, student);
+        sr.save(student);
+        return true;
     }
 
     @Override

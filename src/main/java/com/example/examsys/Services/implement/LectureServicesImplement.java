@@ -20,50 +20,30 @@ public class LectureServicesImplement implements LectureServices {
 
     @Cacheable(key = "#p0.getId()", value = "LectureID#2")
     public Lecture addLecture(LectureDTO lectureDTO) {
-        try {
-            Lecture lecture = new Lecture();
-            BeanUtils.copyProperties(lectureDTO, lecture);
-            lr.save(lecture);
-            return lecture;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Lecture lecture = new Lecture();
+        BeanUtils.copyProperties(lectureDTO, lecture);
+        lr.save(lecture);
+        return lecture;
     }
 
     @CacheEvict(key = "#p0", value = "LectureID")
     public boolean deleteLectureById(Long id) {
-        try {
-            lr.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        lr.deleteById(id);
+        return true;
     }
 
     @Cacheable(key = "#p0", value = "LectureID#2")
     public Lecture findLectureById(Long id) {
-        try {
-            Lecture lecture = lr.findById(id).get();
-            return lecture;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Lecture lecture = lr.findById(id).get();
+        return lecture;
     }
 
     @CachePut(key = "#p0.getId()", value = "LectureID#2")
     public boolean updateLecture(LectureDTO lectureDTO) {
-        try {
-            Lecture lecture = new Lecture();
-            BeanUtils.copyProperties(lectureDTO, lecture);
-            lr.save(lecture);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        Lecture lecture = new Lecture();
+        BeanUtils.copyProperties(lectureDTO, lecture);
+        lr.save(lecture);
+        return true;
     }
 
     @Override
@@ -73,9 +53,13 @@ public class LectureServicesImplement implements LectureServices {
     }
 
     public void fillLecture() {
-        Lecture a = new Lecture();
-        a.setId(123455);
-        a.setTeacherID(3101032L);
-        lr.save(a);
+        try {
+            Lecture a = new Lecture();
+            a.setId(123455);
+            a.setTeacherID(3101032L);
+            lr.save(a);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

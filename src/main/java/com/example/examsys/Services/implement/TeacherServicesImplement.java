@@ -20,50 +20,30 @@ public class TeacherServicesImplement implements TeacherServices {
 
     @Cacheable(key = "#p0.getId()", value = "TeacherID#2")
     public Teacher addTeacher(TeacherDTO teacherDTO) {
-        try {
-            Teacher teacher = new Teacher();
-            BeanUtils.copyProperties(teacherDTO, teacher);
-            tr.save(teacher);
-            return teacher;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Teacher teacher = new Teacher();
+        BeanUtils.copyProperties(teacherDTO, teacher);
+        tr.save(teacher);
+        return teacher;
     }
 
     @CacheEvict(key = "#p0", value = "TeacherID")
     public boolean deleteTeacherById(Long id) {
-        try {
-            tr.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        tr.deleteById(id);
+        return true;
     }
 
     @Cacheable(key = "#p0", value = "TeacherID#2")
     public Teacher findTeacherById(Long id) {
-        try {
-            Teacher teacher = tr.findById(id).get();
-            return teacher;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Teacher teacher = tr.findById(id).get();
+        return teacher;
     }
 
     @CachePut(key = "#p0.getId()", value = "TeacherID#2")
     public boolean updateTeacher(TeacherDTO teacherDTO) {
-        try {
-            Teacher teacher = new Teacher();
-            BeanUtils.copyProperties(teacherDTO, teacher);
-            tr.save(teacher);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        Teacher teacher = new Teacher();
+        BeanUtils.copyProperties(teacherDTO, teacher);
+        tr.save(teacher);
+        return true;
     }
 
     @Override

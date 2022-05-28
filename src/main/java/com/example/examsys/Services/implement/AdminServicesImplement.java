@@ -17,26 +17,16 @@ public class AdminServicesImplement implements AdminServices {
 
     @Override
     public Admin findAdminByID(Long id) {
-        try {
-            Admin admin = ar.findById(id).get();
-            return admin;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Admin admin = ar.findById(id).get();
+        return admin;
     }
 
     @Override
     public Admin updateAdmin(AdminDTO adminDTO) {
-        try {
-            Admin admin = new Admin();
-            BeanUtils.copyProperties(adminDTO, admin);
-            ar.save(admin);
-            return admin;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Admin admin = new Admin();
+        BeanUtils.copyProperties(adminDTO, admin);
+        ar.save(admin);
+        return admin;
     }
 
     @Override

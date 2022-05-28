@@ -20,65 +20,40 @@ public class QuestionsServicesImplement implements QuestionsServices {
 
     @Cacheable(key = "#p0.getId()", value = "QuestionID#2")
     public Question addQuestion(QuestionDTO questionDTO) {
-        try {
-            Question question = new Question();
-            BeanUtils.copyProperties(questionDTO, question);
-            qr.save(question);
-            return question;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Question question = new Question();
+        BeanUtils.copyProperties(questionDTO, question);
+        qr.save(question);
+        return question;
     }
 
     @CacheEvict(key = "#p0", value = "QuestionID")
     public boolean deleteQuestionById(Long id) {
-        try {
-            qr.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        qr.deleteById(id);
+        return true;
     }
 
     @Cacheable(key = "#p0", value = "QuestionID#2")
     public Question findQuestionById(Long id) {
-        try {
-            Question question = qr.findById(id).get();
-            return question;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        Question question = qr.findById(id).get();
+        return question;
     }
 
     @Override
     public ArrayList<Question> findQuestionsById(ArrayList<Long> ids) {
-        try {
-            ArrayList<Question> questions = new ArrayList<Question>();
-            for (Long id : ids) {
-                Question t = qr.findById(id).get();
-                questions.add(t);
-            }
-            return questions;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        ArrayList<Question> questions = new ArrayList<Question>();
+        for (Long id : ids) {
+            Question t = qr.findById(id).get();
+            questions.add(t);
         }
+        return questions;
     }
-    
+
     @CachePut(key = "#p0.getId()", value = "QuestionID#2")
     public boolean updateQuestion(QuestionDTO questionDTO) {
-        try {
-            Question question = new Question();
-            BeanUtils.copyProperties(questionDTO, question);
-            qr.save(question);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        Question question = new Question();
+        BeanUtils.copyProperties(questionDTO, question);
+        qr.save(question);
+        return true;
     }
 
     public void fillQuestion() {

@@ -15,6 +15,7 @@ import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 
+//非常不稳定地执行，不知道为什么
 @Component
 public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
     @Autowired
@@ -30,11 +31,14 @@ public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
                 public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
                     ReflectionUtils.makeAccessible(field);
                     if (field.isAnnotationPresent(AutoId.class)) {
-                        Field idField = source.getClass().getField("id");
+                        Field idField = source.getClass().getDeclaredField("id");
                         idField.setAccessible(true);
-                        long id = idField.getLong(source.getClass().newInstance());
+                        long id = idField.getLong(source);
                         System.out.println(id);
-                        field.set(source, getNextId(source.getClass().getSimpleName()));
+                        if (id == 0)
+                            field.set(source, getNextId(source.getClass().getSimpleName(), id));
+                        else
+                            field.set(source, id);
                     }
                 }
             });
@@ -42,10 +46,13 @@ public class MongodbAutoIdEvent extends AbstractMongoEventListener<Object> {
         super.onBeforeConvert(event);
     }
 
-    private Long getNextId(String collectionName) {
+    private Long getNextId(String collectionName, long input) {
         Query query = new Query(Criteria.where("collectioinName").is(collectionName));
         Update update = new Update();
-        update.inc("aid", 1);
+        if (input == 0)
+            update.inc("aid", 1);
+        else
+            update.set("aid", input);
         FindAndModifyOptions options = new FindAndModifyOptions();
         options.upsert(true);
         options.returnNew(true);

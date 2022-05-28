@@ -23,50 +23,30 @@ public class AnswerSheetServicesImplement implements AnswerSheetServices {
 
     @Cacheable(key = "#p0.getId()", value = "AnswerSheetID#2")
     public AnswerSheet addAnswerSheet(AnswerSheetDTO answerSheetDTO) {
-        try {
-            AnswerSheet answerSheet = new AnswerSheet();
-            BeanUtils.copyProperties(answerSheetDTO, answerSheet);
-            ar.save(answerSheet);
-            return answerSheet;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        AnswerSheet answerSheet = new AnswerSheet();
+        BeanUtils.copyProperties(answerSheetDTO, answerSheet);
+        ar.save(answerSheet);
+        return answerSheet;
     }
 
     @CacheEvict(key = "#p0", value = "AnswerSheetID")
     public boolean deleteAnswerSheetById(Long id) {
-        try {
-            ar.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        ar.deleteById(id);
+        return true;
     }
 
     @Cacheable(key = "#p0", value = "AnswerSheetID#2")
     public AnswerSheet findAnswerSheetById(Long id) {
-        try {
-            AnswerSheet answerSheet = ar.findById(id).get();
-            return answerSheet;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        AnswerSheet answerSheet = ar.findById(id).get();
+        return answerSheet;
     }
 
     @CachePut(key = "#p0.getId()", value = "AnswerSheetID#2")
     public boolean updateAnswerSheet(AnswerSheetDTO answerSheetDTO) {
-        try {
-            AnswerSheet answerSheet = new AnswerSheet();
-            BeanUtils.copyProperties(answerSheetDTO, answerSheet);
-            ar.save(answerSheet);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        AnswerSheet answerSheet = new AnswerSheet();
+        BeanUtils.copyProperties(answerSheetDTO, answerSheet);
+        ar.save(answerSheet);
+        return true;
     }
 
     @Autowired
@@ -79,9 +59,13 @@ public class AnswerSheetServicesImplement implements AnswerSheetServices {
 
     @Override
     public void fillAnswerSheet() {
-        AnswerSheet answerSheet = new AnswerSheet();
-        answerSheet.setStudentID(31901028);
-        ar.save(answerSheet);
+        try {
+            AnswerSheet answerSheet = new AnswerSheet();
+            answerSheet.setStudentID(31901028);
+            ar.save(answerSheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
