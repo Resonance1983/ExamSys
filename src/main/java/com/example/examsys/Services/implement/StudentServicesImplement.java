@@ -6,9 +6,6 @@ import com.example.examsys.Repository.StudentRepository;
 import com.example.examsys.Services.StudentServices;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +15,7 @@ public class StudentServicesImplement implements StudentServices {
     @Autowired
     private StudentRepository sr;
 
-    @Cacheable(key = "#p0.getId()", value = "StudentID#2")
+    //    @Cacheable(key = "#p0.getId()", value = "StudentID#2")
     public Student addStudent(StudentDTO studentDTO) {
         Student student = new Student();
         BeanUtils.copyProperties(studentDTO, student);
@@ -26,19 +23,19 @@ public class StudentServicesImplement implements StudentServices {
         return student;
     }
 
-    @CacheEvict(key = "#p0", value = "StudentID")
+    //    @CacheEvict(key = "#p0", value = "StudentID")
     public boolean deleteStudentById(Long id) {
         sr.deleteById(id);
         return true;
     }
 
-    @Cacheable(key = "#p0", value = "StudentID#2")
+    //    @Cacheable(key = "#p0", value = "StudentID#2")
     public Student findStudentById(Long id) {
         Student student = sr.findById(id).get();
         return student;
     }
 
-    @CachePut(key = "#p0.getId()", value = "StudentID#2")
+    //    @CachePut(key = "#p0.getId()", value = "StudentID#2")
     public boolean updateStudent(StudentDTO studentDTO) {
         Student student = new Student();
         BeanUtils.copyProperties(studentDTO, student);

@@ -37,8 +37,8 @@ public class StudentController {
                 ResponseData rsp = new ResponseData();
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addStudent");
-                    studentServices.addStudent(studentDTO);
-                    rsp.setRspData(studentDTO);
+                    //autoid切面会改变studentDTO的属性所以重新构造一遍
+                    rsp.setRspData(new StudentDTO(studentServices.addStudent(studentDTO)));
                 } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();

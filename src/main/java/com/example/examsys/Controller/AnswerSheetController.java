@@ -32,12 +32,11 @@ public class AnswerSheetController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addAnswerSheet");
                     String token = httpServletRequest.getHeader("token");
                     if ((JwtUtil.checkSign(token, 2) || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token)))
                             && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO))) {
-                        answerSheetServices.addAnswerSheet(answerSheetDTO);
-                        rsp.setRspData(answerSheetDTO);
+                        rsp.setRspData(new AnswerSheetDTO(answerSheetServices.addAnswerSheet(answerSheetDTO)));
                     } else {
                         rsp.setFailed();
                         rsp.setRspMsg("权限不足");
@@ -61,7 +60,7 @@ public class AnswerSheetController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteAnswerSheetByID");
                     answerSheetServices.deleteAnswerSheetById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
                 } catch (Exception e) {
@@ -83,7 +82,7 @@ public class AnswerSheetController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAnswerSheetById");
                     String token = httpServletRequest.getHeader("token");
                     if (JwtUtil.checkSign(token, 2) || id == Long.parseLong(JwtUtil.getUserId(token))) {
                         rsp.setRspData(new AnswerSheetDTO(answerSheetServices.findAnswerSheetById(id)));
@@ -110,7 +109,7 @@ public class AnswerSheetController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateAnswerSheet");
                     String token = httpServletRequest.getHeader("token");
                     if ((JwtUtil.checkSign(token, 2) || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token)))
                             && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO))) {

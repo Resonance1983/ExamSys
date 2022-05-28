@@ -34,9 +34,8 @@ public class TestController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
-                    testServices.addTest(testDTO);
-                    rsp.setRspData(testDTO);
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addTest");
+                    rsp.setRspData(new TestDTO(testServices.addTest(testDTO)));
                 } catch (Exception e) {
                     e.printStackTrace();
                     rsp.setFailed();
@@ -56,7 +55,7 @@ public class TestController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addTestAutomatic");
                     testServices.addTestAutomatic(testDTO, subject, typeNumberMap);
                     rsp.setRspData(testDTO);
                 } catch (Exception e) {
@@ -78,7 +77,7 @@ public class TestController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteTestById");
                     testServices.deleteTestById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
                 } catch (Exception e) {
@@ -100,7 +99,7 @@ public class TestController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findTestById");
                     String token = httpServletRequest.getHeader("token");
                     Test test = testServices.findTestById(id);
                     //不是管理员或者不是出卷老师就不能得到问卷id组
@@ -126,7 +125,7 @@ public class TestController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateTest");
                     String token = httpServletRequest.getHeader("token");
                     //是出卷老师或者管理员就允许修改
                     if (JwtUtil.checkSign(token, 3) || (testDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)))) {
@@ -155,7 +154,7 @@ public class TestController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAllTest");
                     ArrayList<TestDTO> testDTOS = new ArrayList<>();
                     ArrayList<Test> tests = testServices.findAllTests();
                     for (Test test : tests) {
