@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+//工具类
 public class MyTool {
     public static ArrayList<Question> randomGetQuestions(ArrayList<Question> questions, int number) {
         HashMap<Integer, String> map = new HashMap();

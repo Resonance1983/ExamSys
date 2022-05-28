@@ -24,7 +24,7 @@ public class TestServicesImplement implements TestServices {
     @Autowired
     private QuestionRepository qr;
 
-    @Cacheable(key = "#p0.getId()", value = "TestID#2")
+    @Cacheable(key = "#p0.getId()", value = "TestID#5")
     public Test addTest(TestDTO testDTO) {
         Test test = new Test();
         BeanUtils.copyProperties(testDTO, test);
@@ -64,13 +64,13 @@ public class TestServicesImplement implements TestServices {
         return true;
     }
 
-    @Cacheable(key = "#p0", value = "TestID#2")
+    @Cacheable(key = "#p0", value = "TestID#5")
     public Test findTestById(Long id) {
         Test test = tr.findById(id).get();
         return test;
     }
 
-    @CachePut(key = "#p0.getId()", value = "TestID#2")
+    @CachePut(key = "#p0.getId()", value = "TestID#5")
     public boolean updateTest(TestDTO testDTO) {
         Test test = new Test();
         BeanUtils.copyProperties(testDTO, test);

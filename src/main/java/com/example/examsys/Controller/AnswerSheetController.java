@@ -34,7 +34,7 @@ public class AnswerSheetController {
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addAnswerSheet");
                     String token = httpServletRequest.getHeader("token");
-                    if ((JwtUtil.checkSign(token, 2) || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token)))
+                    if (JwtUtil.getPower(token) > 1 || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token))
                             && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO))) {
                         rsp.setRspData(new AnswerSheetDTO(answerSheetServices.addAnswerSheet(answerSheetDTO)));
                     } else {
@@ -84,7 +84,7 @@ public class AnswerSheetController {
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAnswerSheetById");
                     String token = httpServletRequest.getHeader("token");
-                    if (JwtUtil.checkSign(token, 2) || id == Long.parseLong(JwtUtil.getUserId(token))) {
+                    if (JwtUtil.getPower(token) > 1 || id == Long.parseLong(JwtUtil.getUserId(token))) {
                         rsp.setRspData(new AnswerSheetDTO(answerSheetServices.findAnswerSheetById(id)));
                     } else {
                         rsp.setFailed();
@@ -111,7 +111,7 @@ public class AnswerSheetController {
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateAnswerSheet");
                     String token = httpServletRequest.getHeader("token");
-                    if ((JwtUtil.checkSign(token, 2) || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token)))
+                    if ((JwtUtil.getPower(token) > 1 || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token)))
                             && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO))) {
                         answerSheetServices.updateAnswerSheet(answerSheetDTO);
                         rsp.setRspData(answerSheetDTO);

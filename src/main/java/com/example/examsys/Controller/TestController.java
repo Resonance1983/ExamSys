@@ -103,7 +103,7 @@ public class TestController {
                     String token = httpServletRequest.getHeader("token");
                     Test test = testServices.findTestById(id);
                     //不是管理员或者不是出卷老师就不能得到问卷id组
-                    if (!JwtUtil.checkSign(token, 3) || !(test.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token))))
+                    if (JwtUtil.getPower(token) < 3 || !(test.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token))))
                         test.setQuestionsID(null);
                     rsp.setRspData(new TestDTO(test));
                 } catch (Exception e) {
@@ -128,7 +128,7 @@ public class TestController {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateTest");
                     String token = httpServletRequest.getHeader("token");
                     //是出卷老师或者管理员就允许修改
-                    if (JwtUtil.checkSign(token, 3) || (testDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)))) {
+                    if (JwtUtil.getPower(token) > 2 || (testDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)))) {
                         testServices.updateTest(testDTO);
                         rsp.setRspData(testDTO);
                     } else {

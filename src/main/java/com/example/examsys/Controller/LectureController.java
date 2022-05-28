@@ -99,7 +99,7 @@ public class LectureController {
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateLecture");
                     String token = httpServletRequest.getHeader("token");
-                    if (lectureDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token))) {
+                    if (lectureDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token)) || JwtUtil.getPower(token) > 2) {
                         lectureServices.updateLecture(lectureDTO);
                         rsp.setRspData(lectureDTO);
                     } else {

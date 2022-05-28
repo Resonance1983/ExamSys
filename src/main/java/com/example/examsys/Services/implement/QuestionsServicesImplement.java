@@ -18,7 +18,7 @@ public class QuestionsServicesImplement implements QuestionsServices {
     @Autowired
     private QuestionRepository qr;
 
-    @Cacheable(key = "#p0.getId()", value = "QuestionID#2")
+    @Cacheable(key = "#p0.getId()", value = "QuestionID#5")
     public Question addQuestion(QuestionDTO questionDTO) {
         Question question = new Question();
         BeanUtils.copyProperties(questionDTO, question);
@@ -32,7 +32,7 @@ public class QuestionsServicesImplement implements QuestionsServices {
         return true;
     }
 
-    @Cacheable(key = "#p0", value = "QuestionID#2")
+    @Cacheable(key = "#p0", value = "QuestionID#5")
     public Question findQuestionById(Long id) {
         Question question = qr.findById(id).get();
         return question;
@@ -48,7 +48,7 @@ public class QuestionsServicesImplement implements QuestionsServices {
         return questions;
     }
 
-    @CachePut(key = "#p0.getId()", value = "QuestionID#2")
+    @CachePut(key = "#p0.getId()", value = "QuestionID#5")
     public boolean updateQuestion(QuestionDTO questionDTO) {
         Question question = new Question();
         BeanUtils.copyProperties(questionDTO, question);

@@ -21,7 +21,7 @@ public class AnswerSheetServicesImplement implements AnswerSheetServices {
     @Autowired
     private AnswerSheetRepository ar;
 
-    @Cacheable(key = "#p0.getId()", value = "AnswerSheetID#2")
+    @Cacheable(key = "#p0.getId()", value = "AnswerSheetID#5")
     public AnswerSheet addAnswerSheet(AnswerSheetDTO answerSheetDTO) {
         AnswerSheet answerSheet = new AnswerSheet();
         BeanUtils.copyProperties(answerSheetDTO, answerSheet);
@@ -35,13 +35,13 @@ public class AnswerSheetServicesImplement implements AnswerSheetServices {
         return true;
     }
 
-    @Cacheable(key = "#p0", value = "AnswerSheetID#2")
+    @Cacheable(key = "#p0", value = "AnswerSheetID#5")
     public AnswerSheet findAnswerSheetById(Long id) {
         AnswerSheet answerSheet = ar.findById(id).get();
         return answerSheet;
     }
 
-    @CachePut(key = "#p0.getId()", value = "AnswerSheetID#2")
+    @CachePut(key = "#p0.getId()", value = "AnswerSheetID#5")
     public boolean updateAnswerSheet(AnswerSheetDTO answerSheetDTO) {
         AnswerSheet answerSheet = new AnswerSheet();
         BeanUtils.copyProperties(answerSheetDTO, answerSheet);

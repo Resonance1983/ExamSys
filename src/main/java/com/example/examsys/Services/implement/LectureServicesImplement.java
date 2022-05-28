@@ -18,7 +18,7 @@ public class LectureServicesImplement implements LectureServices {
     @Autowired
     private LectureRepository lr;
 
-    @Cacheable(key = "#p0.getId()", value = "LectureID#2")
+    @Cacheable(key = "#p0.getId()", value = "LectureID#5")
     public Lecture addLecture(LectureDTO lectureDTO) {
         Lecture lecture = new Lecture();
         BeanUtils.copyProperties(lectureDTO, lecture);
@@ -32,13 +32,13 @@ public class LectureServicesImplement implements LectureServices {
         return true;
     }
 
-    @Cacheable(key = "#p0", value = "LectureID#2")
+    @Cacheable(key = "#p0", value = "LectureID#5")
     public Lecture findLectureById(Long id) {
         Lecture lecture = lr.findById(id).get();
         return lecture;
     }
 
-    @CachePut(key = "#p0.getId()", value = "LectureID#2")
+    @CachePut(key = "#p0.getId()", value = "LectureID#5")
     public boolean updateLecture(LectureDTO lectureDTO) {
         Lecture lecture = new Lecture();
         BeanUtils.copyProperties(lectureDTO, lecture);

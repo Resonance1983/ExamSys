@@ -71,6 +71,21 @@ public class JwtUtil {
         }
     }
 
+    public static int getPower(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(SECRET);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    // .withClaim("username", username)
+                    .build();
+            DecodedJWT jwt = verifier.verify(token);
+            //取出payload,与权限图谱匹配权限
+            int userPower = powerMap.get(jwt.getClaim("userType").asString());
+            return userPower;
+        } catch (JWTDecodeException | UnsupportedEncodingException e) {
+            return 0;
+        }
+    }
+
     /**
      * 校验token,在这里判断用户权限
      *
@@ -85,7 +100,7 @@ public class JwtUtil {
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             //取出payload,与权限图谱匹配权限
-            int userPower = powerMap.get(jwt.getClaim("userType").asString());
+            int userPower = JwtUtil.getPower(token);
             if (userPower < requireLevel) {
                 throw new IllegalAccessException("权限不足");
             }

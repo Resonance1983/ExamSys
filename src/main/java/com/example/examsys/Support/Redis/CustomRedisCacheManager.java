@@ -9,29 +9,13 @@ import org.springframework.data.redis.cache.RedisCacheWriter;
 import java.time.Duration;
 
 public class CustomRedisCacheManager extends RedisCacheManager {
-    
-    /*
-     * @description 提供默认构造器
-     * @author xianping
-     * @date 2020/9/28 9:22
-     * @param
-     * @param cacheWriter
-     * @param defaultCacheConfiguration
-     * @return
-     **/
+
+    //默认构造器
     public CustomRedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration) {
         super(cacheWriter, defaultCacheConfiguration);
     }
 
-    /*
-     * @description 重写父类createRedisCache方法
-     * @author xianping
-     * @date 2020/9/28 9:22
-     * @param
-     * @param name @Cacheable中的value
-     * @param cacheConfig
-     * @return org.springframework.data.redis.cache.RedisCache
-     **/
+    //重写父类createRedisCache方法
     @Override
     protected RedisCache createRedisCache(String name, RedisCacheConfiguration cacheConfig) {
         //名称中存在#标记进行到期时间配置
@@ -41,7 +25,7 @@ public class CustomRedisCacheManager extends RedisCacheManager {
                 //配置缓存到期时间
                 int cycle = Integer.parseInt(SPEL[1]);
                 //小时为单位
-                return super.createRedisCache(SPEL[0], cacheConfig.entryTtl(Duration.ofMinutes(cycle * 60)));
+                return super.createRedisCache(SPEL[0], cacheConfig.entryTtl(Duration.ofMinutes(cycle)));
             }
         }
         return super.createRedisCache(name, cacheConfig);

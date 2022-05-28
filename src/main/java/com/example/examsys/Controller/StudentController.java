@@ -102,7 +102,7 @@ public class StudentController {
                 ResponseData rsp = new ResponseData();
                 try {
                     String token = httpServletRequest.getHeader("token");
-                    if (studentDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))) {
+                    if (studentDTO.getId() == Long.parseLong(JwtUtil.getUserId(token)) || JwtUtil.getPower(token) > 1) {
                         studentServices.updateStudent(studentDTO);
                         rsp.setRspData(studentDTO);
                     } else {

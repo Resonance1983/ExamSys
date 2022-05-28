@@ -5,9 +5,7 @@ import org.springframework.data.redis.listener.KeyExpirationEventMessageListener
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
 
-/**
- * 监听所有db的过期事件__keyevent@*__:expired"
- */
+//缓存失效监听
 @Component
 public class RedisKeyExpirationListener extends KeyExpirationEventMessageListener {
 
@@ -15,12 +13,7 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
         super(listenerContainer);
     }
 
-    /**
-     * 针对 redis 数据失效事件，进行数据处理
-     *
-     * @param message
-     * @param pattern
-     */
+    //数据失效事件
     @Override
     public void onMessage(Message message, byte[] pattern) {
         // 获取到失效的 key，输出提醒

@@ -18,7 +18,7 @@ public class TeacherServicesImplement implements TeacherServices {
     @Autowired
     private TeacherRepository tr;
 
-    @Cacheable(key = "#p0.getId()", value = "TeacherID#2")
+    @Cacheable(key = "#p0.getId()", value = "TeacherID#5")
     public Teacher addTeacher(TeacherDTO teacherDTO) {
         Teacher teacher = new Teacher();
         BeanUtils.copyProperties(teacherDTO, teacher);
@@ -32,13 +32,13 @@ public class TeacherServicesImplement implements TeacherServices {
         return true;
     }
 
-    @Cacheable(key = "#p0", value = "TeacherID#2")
+    @Cacheable(key = "#p0", value = "TeacherID#5")
     public Teacher findTeacherById(Long id) {
         Teacher teacher = tr.findById(id).get();
         return teacher;
     }
 
-    @CachePut(key = "#p0.getId()", value = "TeacherID#2")
+    @CachePut(key = "#p0.getId()", value = "TeacherID#5")
     public boolean updateTeacher(TeacherDTO teacherDTO) {
         Teacher teacher = new Teacher();
         BeanUtils.copyProperties(teacherDTO, teacher);
