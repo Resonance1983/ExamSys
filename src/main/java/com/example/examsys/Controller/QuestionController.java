@@ -31,7 +31,7 @@ public class QuestionController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addQuestion");
                     questionServices.addQuestion(questionDTO);
                     rsp.setRspData(questionDTO);
                 } catch (Exception e) {
@@ -53,7 +53,7 @@ public class QuestionController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteQuestionById");
                     questionServices.deleteQuestionById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
                 } catch (Exception e) {
@@ -75,7 +75,7 @@ public class QuestionController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findQuestionById");
                     rsp.setRspData(new QuestionDTO(questionServices.findQuestionById(id)));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -96,7 +96,7 @@ public class QuestionController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findQuestionsById");
                     ArrayList<Question> questions = new ArrayList<>();
                     ArrayList<QuestionDTO> questionDTOS = new ArrayList<>();
                     questions = questionServices.findQuestionsById(ids);
@@ -124,7 +124,7 @@ public class QuestionController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateQuestion");
                     questionServices.updateQuestion(questionDTO);
                     rsp.setRspData(questionDTO);
                 } catch (Exception e) {

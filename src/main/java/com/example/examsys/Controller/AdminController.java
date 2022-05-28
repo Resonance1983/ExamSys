@@ -30,7 +30,7 @@ public class AdminController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAdmin");
                     rsp.setRspData(new AdminDTO(adminServices.findAdminByID(id)));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -51,7 +51,7 @@ public class AdminController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateAdmin");
                     String token = httpServletRequest.getHeader("token");
                     if (adminDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))) {
                         adminServices.updateAdmin(adminDTO);

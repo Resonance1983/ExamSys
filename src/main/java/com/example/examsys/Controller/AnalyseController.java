@@ -28,7 +28,7 @@ public class AnalyseController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "questionState");
                     rsp.setRspData(analyseServices.questionState(testid, questionid));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -49,7 +49,7 @@ public class AnalyseController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "typeState");
                     rsp.setRspData(analyseServices.typeState(testid, type));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -70,7 +70,7 @@ public class AnalyseController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "questionsState");
                     rsp.setRspData(analyseServices.questionsState(testID, questionsID));
                 } catch (Exception e) {
                     e.printStackTrace();

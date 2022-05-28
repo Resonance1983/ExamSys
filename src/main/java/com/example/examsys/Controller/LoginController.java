@@ -29,7 +29,7 @@ public class LoginController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "studentLogin");
                     if (!loginServices.studentLogin(studentID, password)) {
                         rsp.setFailed();
                         rsp.setRspData(new Boolean(Boolean.FALSE));
@@ -56,7 +56,7 @@ public class LoginController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "teacherLogin");
                     if (!loginServices.teacherLogin(teacherID, password)) {
                         rsp.setFailed();
                         rsp.setRspData(new Boolean(Boolean.FALSE));
@@ -83,7 +83,7 @@ public class LoginController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "adminLogin");
                     if (!loginServices.adminLogin(adminID, password)) {
                         rsp.setFailed();
                         rsp.setRspData(new Boolean(Boolean.FALSE));
@@ -110,7 +110,7 @@ public class LoginController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "studentModify");
                     if (!loginServices.studentModify(studentID, oldpassword, newpass1, newpass2)) {
                         logger.info(oldpassword + " " + newpass1 + " " + newpass2);
                         rsp.setFailed();
@@ -135,7 +135,7 @@ public class LoginController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "teacherModify");
                     if (!loginServices.teacherModify(teacherID, oldpassword, newpass1, newpass2)) {
                         logger.info(oldpassword + " " + newpass1 + " " + newpass2);
                         rsp.setFailed();
@@ -159,7 +159,7 @@ public class LoginController {
 //            @Override
 //            public ResponseData call() throws Exception {
 //                ResponseData rsp = new ResponseData();
-//                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+//                System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "adminModify);
 //                if (!loginServices.adminModify(adminID, oldpassword, newpass1, newpass2)) {
 //                    rsp.setFailed();
 //                    rsp.setRspData(new Boolean(Boolean.FALSE));

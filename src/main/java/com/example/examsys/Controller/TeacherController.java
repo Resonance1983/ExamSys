@@ -33,7 +33,7 @@ public class TeacherController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addTeacher");
                     teacherServices.addTeacher(teacherDTO);
                     rsp.setRspData(teacherDTO);
                 } catch (Exception e) {
@@ -55,7 +55,7 @@ public class TeacherController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteTeacherById");
                     teacherServices.deleteTeacherById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
                 } catch (Exception e) {
@@ -77,7 +77,7 @@ public class TeacherController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findTeacherById");
                     rsp.setRspData(new TeacherDTO(teacherServices.findTeacherById(id)));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -98,7 +98,7 @@ public class TeacherController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateTeacher");
                     String token = httpServletRequest.getHeader("token");
                     if (teacherDTO.getId() == Long.parseLong(JwtUtil.getUserId(token))) {
                         teacherServices.updateTeacher(teacherDTO);
@@ -126,7 +126,7 @@ public class TeacherController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAllTeacher");
                     ArrayList<TeacherDTO> teacherDTOS = new ArrayList<>();
                     ArrayList<Teacher> teachers = teacherServices.findAllTeachers();
                     for (Teacher teacher : teachers) {

@@ -33,7 +33,7 @@ public class LectureController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addLecture");
                     lectureServices.addLecture(lectureDTO);
                     rsp.setRspData(lectureDTO);
                 } catch (Exception e) {
@@ -55,7 +55,7 @@ public class LectureController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "deleteLectureById");
                     lectureServices.deleteLectureById(id);
                     rsp.setRspData(new Boolean(Boolean.TRUE));
                 } catch (Exception e) {
@@ -77,7 +77,7 @@ public class LectureController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findLectureById");
                     rsp.setRspData(new LectureDTO(lectureServices.findLectureById(id)));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -98,7 +98,7 @@ public class LectureController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateLecture");
                     String token = httpServletRequest.getHeader("token");
                     if (lectureDTO.getTeacherID() == Long.parseLong(JwtUtil.getUserId(token))) {
                         lectureServices.updateLecture(lectureDTO);
@@ -127,7 +127,7 @@ public class LectureController {
             public ResponseData call() throws Exception {
                 ResponseData rsp = new ResponseData();
                 try {
-                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + Thread.currentThread().getStackTrace()[1].getMethodName());
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAllLecture");
                     ArrayList<LectureDTO> lectureDTOS = new ArrayList<>();
                     ArrayList<Lecture> lectures = lectureServices.findAllLectures();
                     for (Lecture lecture : lectures) {
