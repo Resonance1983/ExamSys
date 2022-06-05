@@ -20,7 +20,7 @@ public class FlowController {
 
     @JwtToken(requirePower = 1)
     @ApiOperation(value = "学生报名课程")
-    @PostMapping(value = "addLecture/{lectureID}/{studentID}", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "lectureAddStudent/{lectureID}/{studentID}", produces = "application/json;charset=UTF-8")
     public Callable<ResponseData> lectureAddStudent(@PathVariable("lectureID") long lectureID, @PathVariable("studentID") long studentID) {
         return new Callable<ResponseData>() {
             @Override

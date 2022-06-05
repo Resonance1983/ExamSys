@@ -15,6 +15,7 @@ public class StudentDTO implements Serializable {
     private final String passWord;
     private final String academy;
     private final String major;
+    private final ArrayList<Long> lectures;
     private final int grade;
     private final String sex;
     private final String pictureURL;
@@ -26,6 +27,7 @@ public class StudentDTO implements Serializable {
         this.passWord = student.getPassWord();
         this.academy = student.getAcademy();
         this.major = student.getMajor();
+        this.lectures = student.getLectures();
         this.grade = student.getGrade();
         this.sex = student.getSex();
         this.pictureURL = student.getPictureURL();
