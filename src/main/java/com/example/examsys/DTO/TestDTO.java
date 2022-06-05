@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +16,8 @@ public class TestDTO implements Serializable {
     private final long teacherID;
     private final long lecturelD;
     private final long invigilatorlD;
-    private final Date timeBegin;
-    private final Date timeFinish;
+    private final String timeBegin;
+    private final String timeFinish;
     private final int batch;
     private final int session;
     private final ArrayList<Long> studentsID;
@@ -29,8 +29,9 @@ public class TestDTO implements Serializable {
         this.teacherID = test.getTeacherID();
         this.lecturelD = test.getLecturelD();
         this.invigilatorlD = test.getInvigilatorlD();
-        this.timeBegin = test.getTimeBegin();
-        this.timeFinish = test.getTimeFinish();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.timeBegin = simpleDateFormat.format(test.getTimeBegin());
+        this.timeFinish = simpleDateFormat.format(test.getTimeFinish());
         this.batch = test.getBatch();
         this.session = test.getSession();
         this.studentsID = test.getStudentsID();

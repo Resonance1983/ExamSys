@@ -14,6 +14,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,15 +27,18 @@ public class TestServicesImplement implements TestServices {
     private QuestionRepository qr;
 
     @Cacheable(key = "#p0.getId()", value = "TestID#5")
-    public Test addTest(TestDTO testDTO) {
+    public Test addTest(TestDTO testDTO) throws ParseException {
         Test test = new Test();
         BeanUtils.copyProperties(testDTO, test);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        test.setTimeBegin(simpleDateFormat.parse(testDTO.getTimeBegin()));
+        test.setTimeFinish(simpleDateFormat.parse(testDTO.getTimeFinish()));
         tr.save(test);
         return test;
     }
 
     @Override
-    public Test addTestAutomatic(TestDTO testDTO, String subject, HashMap<String, Integer> typeNumberMap) {
+    public Test addTestAutomatic(TestDTO testDTO, String subject, HashMap<String, Integer> typeNumberMap) throws ParseException {
         //首先找到所有的相关学科和类型的问题
         HashMap<String, ArrayList<Question>> relatedQuestions = new HashMap<>();
         //组成的问卷
@@ -53,6 +58,9 @@ public class TestServicesImplement implements TestServices {
         }
         Test test = new Test();
         BeanUtils.copyProperties(testDTO, test);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        test.setTimeBegin(simpleDateFormat.parse(testDTO.getTimeBegin()));
+        test.setTimeFinish(simpleDateFormat.parse(testDTO.getTimeFinish()));
         test.setQuestionsID(questionsID);
         tr.save(test);
         return test;
@@ -71,9 +79,12 @@ public class TestServicesImplement implements TestServices {
     }
 
     @CachePut(key = "#p0.getId()", value = "TestID#5")
-    public boolean updateTest(TestDTO testDTO) {
+    public boolean updateTest(TestDTO testDTO) throws ParseException {
         Test test = new Test();
         BeanUtils.copyProperties(testDTO, test);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        test.setTimeBegin(simpleDateFormat.parse(testDTO.getTimeBegin()));
+        test.setTimeFinish(simpleDateFormat.parse(testDTO.getTimeFinish()));
         tr.save(test);
         return true;
     }
