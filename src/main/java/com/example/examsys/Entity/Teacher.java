@@ -27,6 +27,8 @@ public class Teacher {
     private String sex;
     @Field("pictureURL")
     private String pictureURL;
+    @Field("lectures")
+    private ArrayList<Long> lectures;
     @Field("messageBox")
     private ArrayList<String> messageBox;
     @Field("academy")

@@ -23,6 +23,7 @@ public class LoginServicesImplement implements LoginServices {
 
     public boolean studentLogin(long studentID, String password) {
         Student user = sr.findById(studentID).get();
+        System.out.println(user.getPassWord());
         return user.getId() == studentID && user.getPassWord().equals(password);
     }
 

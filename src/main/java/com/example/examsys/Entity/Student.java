@@ -27,6 +27,8 @@ public class Student {
     private String academy;
     @Field("major")
     private String major;
+    @Field("lectures")
+    private ArrayList<Long> lectures;
     @Field("grade")
     private int grade;
     @Field("sex")

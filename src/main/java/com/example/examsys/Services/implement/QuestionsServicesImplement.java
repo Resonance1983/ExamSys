@@ -59,7 +59,6 @@ public class QuestionsServicesImplement implements QuestionsServices {
     public void fillQuestion() {
         Question a = new Question();
         a.setType("简答题");
-        a.setId(123456L);
         a.setDescription("光的散射原因");
         qr.save(a);
     }

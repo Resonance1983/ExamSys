@@ -16,7 +16,7 @@ public class StudentServicesImplement implements StudentServices {
     @Autowired
     private StudentRepository sr;
 
-    //    @Cacheable(key = "#p0.getId()", value = "StudentID#5")
+    @Cacheable(key = "#p0.getId()", value = "StudentID#5")
     public Student addStudent(StudentDTO studentDTO) {
         Student student = new Student();
         BeanUtils.copyProperties(studentDTO, student);

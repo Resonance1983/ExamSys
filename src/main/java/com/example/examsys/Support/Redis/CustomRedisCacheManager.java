@@ -24,7 +24,7 @@ public class CustomRedisCacheManager extends RedisCacheManager {
             if (StringUtils.isNumeric(SPEL[1])) {
                 //配置缓存到期时间
                 int cycle = Integer.parseInt(SPEL[1]);
-                //小时为单位
+                //分钟为单位
                 return super.createRedisCache(SPEL[0], cacheConfig.entryTtl(Duration.ofMinutes(cycle)));
             }
         }
