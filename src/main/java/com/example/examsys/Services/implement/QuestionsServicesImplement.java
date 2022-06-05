@@ -48,6 +48,13 @@ public class QuestionsServicesImplement implements QuestionsServices {
         return questions;
     }
 
+    @Override
+    public ArrayList<Question> findAllQuestion() {
+        ArrayList<Question> questions = new ArrayList<Question>();
+        questions = new ArrayList<Question>(qr.findAll());
+        return questions;
+    }
+
     @CachePut(key = "#p0.getId()", value = "QuestionID#5")
     public boolean updateQuestion(QuestionDTO questionDTO) {
         Question question = new Question();

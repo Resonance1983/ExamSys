@@ -115,6 +115,34 @@ public class QuestionController {
     }
 
     @JwtToken(requirePower = 2)
+    @ApiOperation(value = "寻找所有问题")
+    @GetMapping("findAllQuestion")
+    public Callable<ResponseData> findAllQuestion() {
+        return new Callable<ResponseData>() {
+            @Override
+            public ResponseData call() throws Exception {
+                ResponseData rsp = new ResponseData();
+                try {
+                    System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "findAllQuestion");
+                    ArrayList<Question> questions = new ArrayList<>();
+                    ArrayList<QuestionDTO> questionDTOS = new ArrayList<>();
+                    questions = questionServices.findAllQuestion();
+                    for (Question question : questions) {
+                        questionDTOS.add(new QuestionDTO(question));
+                    }
+                    rsp.setRspData(questionDTOS);
+                    return rsp;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    rsp.setFailed();
+                    rsp.setRspMsg(e.toString());
+                }
+                return rsp;
+            }
+        };
+    }
+
+    @JwtToken(requirePower = 2)
     @ApiOperation(value = "修改问题信息")
     @PutMapping(value = "updateQuestion", produces = "application/json;charset=UTF-8")
     public Callable<ResponseData> updateQuestion(@RequestBody QuestionDTO questionDTO) {

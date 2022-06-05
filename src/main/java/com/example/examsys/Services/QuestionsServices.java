@@ -14,6 +14,8 @@ public interface QuestionsServices {
 
     ArrayList<Question> findQuestionsById(ArrayList<Long> ids);
 
+    ArrayList<Question> findAllQuestion();
+
     boolean updateQuestion(QuestionDTO questionDTO);
 
     void fillQuestion();
