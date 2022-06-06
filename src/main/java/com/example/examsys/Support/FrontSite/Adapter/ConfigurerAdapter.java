@@ -1,10 +1,9 @@
-package com.example.examsys.Support;
+package com.example.examsys.Support.FrontSite.Adapter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//解决跨域问题
 @Configuration
 public class ConfigurerAdapter implements WebMvcConfigurer {
     @Override

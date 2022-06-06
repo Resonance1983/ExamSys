@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class TestDTO implements Serializable {
     private final long id;
     private final long teacherID;
-    private final long lecturelD;
-    private final long invigilatorlD;
+    private final long lectureID;
+    private final long invigilatorID;
     private final String timeBegin;
     private final String timeFinish;
     private final int batch;
@@ -27,8 +27,8 @@ public class TestDTO implements Serializable {
     public TestDTO(Test test) {
         this.id = test.getId();
         this.teacherID = test.getTeacherID();
-        this.lecturelD = test.getLecturelD();
-        this.invigilatorlD = test.getInvigilatorlD();
+        this.lectureID = test.getLectureID();
+        this.invigilatorID = test.getInvigilatorID();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.timeBegin = simpleDateFormat.format(test.getTimeBegin());
         this.timeFinish = simpleDateFormat.format(test.getTimeFinish());

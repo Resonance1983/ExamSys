@@ -18,10 +18,10 @@ public class Test {
     private long id;
     @Field("teacherID")
     private long teacherID;
-    @Field("lecturelD")
-    private long lecturelD;
-    @Field("invigilatorlD")
-    private long invigilatorlD;
+    @Field("lectureID")
+    private long lectureID;
+    @Field("invigilatorID")
+    private long invigilatorID;
     @Field("timeBegin")
     private Date timeBegin;
     @Field("timeFinish")
