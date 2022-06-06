@@ -34,12 +34,12 @@ public class AnswerSheetController {
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "addAnswerSheet");
                     String token = httpServletRequest.getHeader("token");
-                    if (JwtUtil.getPower(token) > 1 || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token))
-                            && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO))) {
+                    if (JwtUtil.getPower(token) > 1 || (answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token))
+                            && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO)))) {
                         rsp.setRspData(new AnswerSheetDTO(answerSheetServices.addAnswerSheet(answerSheetDTO)));
                     } else {
                         rsp.setFailed();
-                        rsp.setRspMsg("权限不足");
+                        rsp.setRspMsg("非修改用户或非修改时间");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -111,13 +111,13 @@ public class AnswerSheetController {
                 try {
                     System.out.println("异步执行线程:" + Thread.currentThread().getName() + "，执行服务:" + "updateAnswerSheet");
                     String token = httpServletRequest.getHeader("token");
-                    if ((JwtUtil.getPower(token) > 1 || answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token)))
-                            && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO))) {
+                    if (JwtUtil.getPower(token) > 1 || (answerSheetDTO.getStudentID() == Long.parseLong(JwtUtil.getUserId(token))
+                            && MyTool.inDuration(new Date(), answerSheetServices.getTestDuration(answerSheetDTO)))) {
                         answerSheetServices.updateAnswerSheet(answerSheetDTO);
                         rsp.setRspData(answerSheetDTO);
                     } else {
                         rsp.setFailed();
-                        rsp.setRspMsg("非修改用户");
+                        rsp.setRspMsg("非修改用户或非修改时间");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

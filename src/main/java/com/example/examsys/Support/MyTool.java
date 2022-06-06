@@ -2,6 +2,7 @@ package com.example.examsys.Support;
 
 import com.example.examsys.Entity.Question;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class MyTool {
         return date.after(begin) && date.before(end);
     }
 
-    public static class Tuple<X, Y> {
+    public static class Tuple<X, Y> implements Serializable {
         public X x;
         public Y y;
 
@@ -48,5 +49,5 @@ public class MyTool {
             this.y = y;
         }
     }
-    
+
 }

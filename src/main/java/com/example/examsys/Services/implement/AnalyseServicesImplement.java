@@ -1,7 +1,6 @@
 package com.example.examsys.Services.implement;
 
 import com.example.examsys.Entity.AnswerSheet;
-import com.example.examsys.Entity.Question;
 import com.example.examsys.Entity.Test;
 import com.example.examsys.Repository.TestRepository;
 import com.example.examsys.Services.AnalyseServices;
@@ -49,19 +48,19 @@ public class AnalyseServicesImplement implements AnalyseServices {
     @Override
     public HashMap<Long, HashMap<Long, Integer>> typeState(Long testID, String type) {
         HashMap<Long, HashMap<Long, Integer>> result = new HashMap<>();
-        //先找到考试信息,获取学生们的答卷
-        Test test = tr.findById(testID).get();
-        ArrayList<AnswerSheet> answerSheets = test.getAnswersheets();
-        //将他们在这类题上的得分情况填写到result上
-        for (AnswerSheet answerSheet : answerSheets) {
-            HashMap<Long, Integer> t = new HashMap<>();
-            for (Question question : answerSheet.getSheet().keySet()) {
-                if (question.getType() == type) {
-                    t.put(question.getId(), answerSheet.getScoreByQuestionID(question.getId()));
-                }
-            }
-            result.put(answerSheet.getStudentID(), t);
-        }
+//        //先找到考试信息,获取学生们的答卷
+//        Test test = tr.findById(testID).get();
+//        ArrayList<AnswerSheet> answerSheets = test.getAnswersheets();
+//        //将他们在这类题上的得分情况填写到result上
+//        for (AnswerSheet answerSheet : answerSheets) {
+//            HashMap<Long, Integer> t = new HashMap<>();
+//            for (Question question : answerSheet.getSheet().keySet()) {
+//                if (question.getType() == type) {
+//                    t.put(question.getId(), answerSheet.getScoreByQuestionID(question.getId()));
+//                }
+//            }
+//            result.put(answerSheet.getStudentID(), t);
+//        }
         return result;
     }
 }

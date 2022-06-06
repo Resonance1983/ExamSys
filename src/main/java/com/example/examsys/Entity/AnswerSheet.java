@@ -2,13 +2,12 @@ package com.example.examsys.Entity;
 
 
 import com.example.examsys.Support.MongoAutoID.AutoId;
-import com.example.examsys.Support.MyTool;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 @Data
 @Document(collection = "AnswerSheet")
@@ -21,13 +20,20 @@ public class AnswerSheet {
     private long testID;
     @Field("studentID")
     private long studentID;
-    @Field("sheet")
-    private HashMap<Question, MyTool.Tuple<String, Integer>> sheet;
+    @Field("questions")
+    ArrayList<Question> questions;
+    @Field("answers")
+    ArrayList<String> answers;
+    @Field("scores")
+    ArrayList<Integer> scores;
 
     public int getScoreByQuestionID(Long questionID) {
-        for (Question question : sheet.keySet()) {
-            if (question.getId() == questionID)
-                return sheet.get(question).y;
+        int index = 0;
+        for (Question q : questions) {
+            if (q.getId() == questionID)
+                return scores.get(index);
+
+            index++;
         }
         return 1;
     }

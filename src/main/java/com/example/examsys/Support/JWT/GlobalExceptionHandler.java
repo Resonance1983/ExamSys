@@ -4,10 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 //全局异常捕获，主要是为了屏蔽掉奇怪的HttpMessageConversionException
-@RestControllerAdvice
+//@RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
